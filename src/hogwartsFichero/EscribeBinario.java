@@ -45,7 +45,7 @@ public class EscribeBinario {
 	//Constructores
 	public EscribeBinario(){
 		try{
-			fichero=new FileOutputStream("defecto.dat",true);
+			fichero=new FileOutputStream("\\src\\hogwartsFichero\\defecto.dat",true);
 			out=new DataOutputStream(fichero);
 		}catch(IOException e){
 			System.out.println(e);
@@ -54,7 +54,7 @@ public class EscribeBinario {
 	
 	public EscribeBinario(String nombre,boolean sobreescritura){
 		try{
-			fichero=new FileOutputStream(nombre+".dat", sobreescritura);
+			fichero=new FileOutputStream("src\\hogwartsFichero\\"+nombre+".dat", sobreescritura);
 			out=new DataOutputStream(fichero);
 		}catch(IOException e){
 			System.out.println(e);
@@ -83,6 +83,7 @@ public class EscribeBinario {
 	//Añadidos
 	public void escribe(Alumno a){
 		try {
+			out.writeInt(a.hashCode());
 			out.writeInt(a.getNombre().length());
 			out.writeChars(a.getNombre());
 			out.writeInt(a.getApellidos().length());

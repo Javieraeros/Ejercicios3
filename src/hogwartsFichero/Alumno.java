@@ -5,13 +5,12 @@
  * Nombre cadena, consultable y modificable
  * Apellidos cadena,consultable y modificable
  * Nota real,consulotable y modificable
- * 
+
  * Derivadas:
  * 
  * 
  * Compartidas:
- *  
- * 
+
  * *************
  * Restricciones
  * *************
@@ -48,6 +47,7 @@
  * int compareTo(Alumno comparado);
  */
 package hogwartsFichero;
+import java.io.*;
 import java.lang.annotation.*;
 public class Alumno implements Cloneable,Comparable<Alumno>{
 	//Atributos
@@ -55,12 +55,22 @@ public class Alumno implements Cloneable,Comparable<Alumno>{
 	private String apellidos;
 	private double nota;
 	
-	
 	//Constructores
 	public Alumno(){
 		nombre="Harry";
 		apellidos="Potter";
 		nota=5;
+		EscribeBinario listado=new EscribeBinario("Alumnos",true);
+		listado.escribe(this);
+		listado.cierra();
+		try {
+			FileWriter fichero = new FileWriter("src\\hogwartsFichero\\AlumnosCadenas.txt",true);
+			BufferedWriter out=new BufferedWriter(fichero);
+			out.write(this.cadena()+"\r\n");
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Alumno(String nombre,String apellidos,double nota)throws IllegalArgumentException{
@@ -73,9 +83,17 @@ public class Alumno implements Cloneable,Comparable<Alumno>{
 			EscribeBinario listado=new EscribeBinario("Alumnos",true);
 			listado.escribe(this);
 			listado.cierra();
+			try {
+				FileWriter fichero = new FileWriter("src\\hogwartsFichero\\AlumnosCadenas.txt",true);
+				BufferedWriter out=new BufferedWriter(fichero);
+				out.write(this.cadena()+"\r\n");
+				out.close();
+				fichero.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
 	
 	//Consultores
 	public String getNombre(){
@@ -106,6 +124,9 @@ public class Alumno implements Cloneable,Comparable<Alumno>{
 		}else{
 			this.nota=nota;
 		}
+	}
+	public String cadena(){
+		return (this.hashCode()+" "+nombre+" "+apellidos+" "+nota);
 	}
 	
 	/* 
@@ -142,12 +163,12 @@ public class Alumno implements Cloneable,Comparable<Alumno>{
 	
 	@Override
 	public String toString(){
-		return ("Nombre: "+nombre+"\nApellidos: "+apellidos+"\nNota: "+nota);
+		return ("Nombre: "+nombre+" Apellidos: "+apellidos+" Nota: "+nota);
 	}
 	
 	@Override
 	public int hashCode(){
-		return ((int) (nombre.hashCode()+apellidos.hashCode()+31*nota));
+		return ((int) (nombre.hashCode()+apellidos.hashCode()+100*nota));
 	}
 	
 	/* 

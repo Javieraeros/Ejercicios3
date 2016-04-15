@@ -94,7 +94,7 @@ public class HogwartsFichero {
 		int opcionMenu = 0, opcionSubMenu = 1, numAlumnos = 1;
 		char seguir = 'n';
 		boolean nombreValido = false, apellidoValido = false;
-		EscribeFichero fichero = new EscribeFichero("Hogwarts.log",true);
+		EscribeFichero fichero = new EscribeFichero("src\\hogwartsFichero\\Hogwarts.log",true);
 		Scanner teclado = new Scanner(System.in);
 		Alumnos alumnos = null;
 		Alumno a = null;
