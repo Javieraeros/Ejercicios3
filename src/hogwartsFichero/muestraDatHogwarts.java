@@ -28,7 +28,7 @@ public class muestraDatHogwarts {
 		//abreFicheroAlumnosLeer
 		DataInputStream fichero;
 		try {
-			fichero = new DataInputStream(new FileInputStream("src\\hogwartsFichero\\Alumnos_final.dat"));
+			fichero = new DataInputStream(new FileInputStream("src\\hogwartsFichero\\Alumnos_temp.dat"));
 			do {
 				//muestraID
 				System.out.println("ID: "+fichero.readInt());
@@ -61,7 +61,7 @@ public class muestraDatHogwarts {
 		}
 		//Lo siguiente es para crear un archivo de actualización de alumnos, y comprobar si lo actualiza
 		/*Alumno javi=new Alumno("Javi","Ruiz",10);
-		javi.setNombre("pene");*/
+		javi.setNombre("pene25");*/
 	}
 
 }

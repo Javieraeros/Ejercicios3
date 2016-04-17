@@ -15,26 +15,24 @@
  Inicio
  	abrirAlumnosLeer           (Alumnos)
  	abrirAlumnos_actLeer       (Actualizado)
- 	abrirAlumnos_nuevoEscribir (Nuevo)
- 	leer ID Alumnos
- 	leer ID Actualizado
+ 	abrirAlumnos_tempEscribir (Temporal)
  	mientras (no FF de Actualizado y no FF de Alumnos)
+ 		Leer registro Actualizado
+		Leer registro Alumnos
  		Si(ID_Alumnos == ID_Actualizado)
-			Escribir registro actualizado en Nuevo
-			Leer registro Actualizado
-			Leer registro Alumnos
+			Escribir registro actualizado en Temporal
 		En otro caso /*puesto que solo contemplamos el caso de actualizaciones, damos por hecho de que 
 						lo que se está realizando es una copia del maestro al maestro actualizado*/
 /*
-			Mientras (ID_Actualizado >ID_Alumnos y no FF de Alumnos)
+			Mientras (ID_Actualizado >ID_Alumnos)
 				Escribir registro de Alumnos en Actualizado
 				Leer registro de Alumnos
 			fin_Mientras
 		Fin_si
 	fin_mientras
 	Mientras(no FF de Alumnos)
-		Escribir registro de Alumnos en Nuevo
 		Leer registro de Alumnos
+		Escribir registro de Alumnos en Temporal
 	Fin mientras
 fin
 */
@@ -80,64 +78,72 @@ public class ActualizaFichero {
 		// Declaración de objetos y otras variables de interés
 		Alumno viejo,actual;
 
-		// abrirAlumnosLeer (Alumnos)
 		File Maestro = new File("src\\hogwartsFichero\\Alumnos.dat");
 		FileInputStream alumno;
 		DataInputStream alumnoIn = null;
+		File Movimiento = new File("src\\hogwartsFichero\\Alumnos_act.dat");
+		FileInputStream actualizado;
+		DataInputStream actualizadoIn = null;
+		EscribeBinario temporal = null;
 		try {
+			// abrirAlumnosLeer (Alumnos)
 			alumno = new FileInputStream(Maestro);
 			alumnoIn = new DataInputStream(alumno);
 
 			// abrirAlumnos_actLeer (Actualizado)
-			File Movimiento = new File("src\\hogwartsFichero\\Alumnos_act.dat");
-			FileInputStream actualizado;
-			DataInputStream actualizadoIn = null;
-
 			actualizado = new FileInputStream(Movimiento);
 			actualizadoIn = new DataInputStream(actualizado);
 
-			// abrirAlumnos_nuevoEscribir (Nuevo)
-			EscribeBinario nuevo=new EscribeBinario("Alumnos_final",true);
-			
-			// leer registro Alumnos
-			viejo=leeAlumno(alumnoIn);
-			
-			
-			// leer registro Actualizado
-			actual=leeAlumno(actualizadoIn);
+			// abrirAlumnos_tempEscribir (Temporal)
+			temporal=new EscribeBinario("Alumnos_temp",true);
 			
 			
 			// mientras (no FF de Actualizado y no FF de Alumnos)
 			while (alumnoIn.available() > 0 && actualizadoIn.available() > 0){
+				// leer registro Alumnos
+				viejo=leeAlumno(alumnoIn);
+				
+				// leer registro Actualizado
+				actual=leeAlumno(actualizadoIn);
+				
 				// Si(ID_Alumnos == ID_Actualizado)
 				if (viejo.getID() == actual.getID()) {
-					// Escribir registro actualizado en Nuevo
-					nuevo.escribe(actual);
-					// Leer registro Actualizado
-					actual=leeAlumno(actualizadoIn);
-					// Leer registro Alumnos
-					viejo=leeAlumno(alumnoIn);
+					// Escribir registro actualizado en Temporal
+					temporal.escribe(actual);
 				}else{// En otro caso
-					// Mientras (ID_Actualizado >ID_Alumnos y no FF de Alumnos)
-					while(actual.getID()>viejo.getID() && alumnoIn.available()>0){
-						// Escribir registro de Alumnos en Nuevo
-						nuevo.escribe(viejo);
+					// Mientras (ID_Actualizado >ID_Alumnos)//no es necesario controlar el fin de ficheros
+															//de Alumnos, puesto que sabemos que en actualizado
+															//solo puede haber alumnos ya existentes
+					// Escribir registro de Alumnos en Temporal
+					temporal.escribe(viejo);
+					while(actual.getID()>viejo.getID()){
 						// Leer registro de Alumnos
 						viejo=leeAlumno(alumnoIn);
+						// Escribir registro de Alumnos en Temporal
+						temporal.escribe(viejo);
 					}// fin_Mientras
 				}// Fin_si
 			}// fin_mientras
 			// Mientras(no FF de Alumnos)
 			while(alumnoIn.available()>0){
-				// Escribir registro de Alumnos en Nuevo
-				nuevo.escribe(viejo);
 				// Leer registro de Alumnos
 				viejo=leeAlumno(alumnoIn);
+				// Escribir registro de Alumnos en Temporal
+				temporal.escribe(viejo);
 			}// Fin mientras
+			alumno.close();
+			actualizado.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			/*temporal.cierra();
+			File maestroActualizado=new File("src\\hogwartsFichero\\Alumnos_final.dat");
+			Maestro.delete();
+			boolean renombrado=maestroActualizado.renameTo(Maestro);
+			Movimiento.delete();
+			System.out.println(renombrado);*/
 		}
 	}
 }
