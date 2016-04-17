@@ -24,18 +24,15 @@
  * 
  * Modificadores:
  * void setFichero(FileOutputStream fichero);
- * void cambiaNombre(String nombre);
  * 
  * Añadidos:
- * escribe();
- * cierra();
+ * void escribe();
+ * coid cierra();
  */
  
 package hogwartsFichero;
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class EscribeBinario {
 	//Atributos
@@ -70,20 +67,11 @@ public class EscribeBinario {
 		this.fichero=fichero;
 		out=new DataOutputStream(fichero);
 	}
-	public void cambiaNombre(String nombre){
-		//Recuerda modificarlo para que vuelque los datos de un fichero en el otro
-		try {
-			fichero=new FileOutputStream(nombre+".dat");
-			out=new DataOutputStream(fichero);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-		
-	}
+
 	//Añadidos
 	public void escribe(Alumno a){
 		try {
-			out.writeInt(a.hashCode());
+			out.writeInt(a.getID());
 			out.writeInt(a.getNombre().length());
 			out.writeChars(a.getNombre());
 			out.writeInt(a.getApellidos().length());
@@ -100,7 +88,43 @@ public class EscribeBinario {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-		
+	}
+	
+	public void actualiza(Alumno a)throws IllegalArgumentException{
+		int idAlumno,nombre,apellido;
+		cierra();
+		try{
+			FileInputStream ficheroLeer=new FileInputStream("src\\hogwartsFichero\\Alumnos.dat");
+			DataInputStream in=new DataInputStream(ficheroLeer);
+			fichero=new FileOutputStream("src\\hogwartsFichero\\Alumnos_act.dat");
+			out=new DataOutputStream(fichero);
+			while(ficheroLeer.available() > 0){
+				idAlumno=in.readInt();
+				if(idAlumno!=a.hashCode()){
+					out.writeInt(idAlumno);
+					nombre=in.readInt();
+					out.writeInt(nombre);
+					for(int i=0;i<nombre;i++){
+						out.writeChar(in.readChar());
+					}
+					apellido=in.readInt();
+					out.writeInt(apellido);
+					for(int i=0;i<apellido;i++){
+						out.writeChar(in.readChar());
+					}
+					out.writeDouble(in.readDouble());
+				}else{
+					escribe(a);
+				}
+			}
+			in.close();
+			ficheroLeer.close();
+			out.close();
+			fichero.close();
+			
+		}catch(IOException e){
+			System.out.println(e);
+		}
 	}
 	
 }
