@@ -16,11 +16,13 @@
  	abrirAlumnosLeer           (Alumnos)
  	abrirAlumnos_actLeer       (Actualizado)
  	abrirAlumnos_tempEscribir (Temporal)
+ 	Leer registro Actualizado
+	Leer registro Alumnos
  	mientras (no FF de Actualizado y no FF de Alumnos)
- 		Leer registro Actualizado
-		Leer registro Alumnos
  		Si(ID_Alumnos == ID_Actualizado)
 			Escribir registro actualizado en Temporal
+			Leer registro Actualizado
+			Leer registro Alumnos
 		En otro caso /*puesto que solo contemplamos el caso de actualizaciones, damos por hecho de que 
 						lo que se está realizando es una copia del maestro al maestro actualizado*/
 /*
@@ -97,35 +99,40 @@ public class ActualizaFichero {
 			// abrirAlumnos_tempEscribir (Temporal)
 			temporal=new EscribeBinario("Alumnos_temp",true);
 			
+			// leer registro Alumnos
+			viejo=leeAlumno(alumnoIn);
+			
+			// leer registro Actualizado
+			actual=leeAlumno(actualizadoIn);
+			
 			
 			// mientras (no FF de Actualizado y no FF de Alumnos)
-			while (alumnoIn.available() > 0 && actualizadoIn.available() > 0){
-				// leer registro Alumnos
-				viejo=leeAlumno(alumnoIn);
-				
-				// leer registro Actualizado
-				actual=leeAlumno(actualizadoIn);
+			while (alumnoIn.read()!=-1 && actualizadoIn.read()!=-1 ){
 				
 				// Si(ID_Alumnos == ID_Actualizado)
 				if (viejo.getID() == actual.getID()) {
 					// Escribir registro actualizado en Temporal
 					temporal.escribe(actual);
+					// leer registro Alumnos
+					viejo=leeAlumno(alumnoIn);
+					
+					// leer registro Actualizado
+					actual=leeAlumno(actualizadoIn);
 				}else{// En otro caso
 					// Mientras (ID_Actualizado >ID_Alumnos)//no es necesario controlar el fin de ficheros
 															//de Alumnos, puesto que sabemos que en actualizado
 															//solo puede haber alumnos ya existentes
-					// Escribir registro de Alumnos en Temporal
-					temporal.escribe(viejo);
 					while(actual.getID()>viejo.getID()){
-						// Leer registro de Alumnos
-						viejo=leeAlumno(alumnoIn);
 						// Escribir registro de Alumnos en Temporal
 						temporal.escribe(viejo);
+						
+						// Leer registro de Alumnos
+						viejo=leeAlumno(alumnoIn);
 					}// fin_Mientras
 				}// Fin_si
 			}// fin_mientras
 			// Mientras(no FF de Alumnos)
-			while(alumnoIn.available()>0){
+			while(alumnoIn.read()!=-1){
 				// Leer registro de Alumnos
 				viejo=leeAlumno(alumnoIn);
 				// Escribir registro de Alumnos en Temporal

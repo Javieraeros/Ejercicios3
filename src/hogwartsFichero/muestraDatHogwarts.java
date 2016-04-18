@@ -28,7 +28,7 @@ public class muestraDatHogwarts {
 		//abreFicheroAlumnosLeer
 		DataInputStream fichero;
 		try {
-			fichero = new DataInputStream(new FileInputStream("src\\hogwartsFichero\\Alumnos_temp.dat"));
+			fichero = new DataInputStream(new FileInputStream("src\\hogwartsFichero\\Alumnos.dat"));
 			do {
 				//muestraID
 				System.out.println("ID: "+fichero.readInt());
