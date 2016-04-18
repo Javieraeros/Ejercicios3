@@ -19,6 +19,7 @@
  	Leer registro Actualizado
 	Leer registro Alumnos
  	mientras (no FF de Actualizado y no FF de Alumnos)
+ 		leer fin de ficheros (alumnos y actualizado
  		Si(ID_Alumnos == ID_Actualizado)
 			Escribir registro actualizado en Temporal
 			Leer registro Actualizado
@@ -33,6 +34,7 @@
 		Fin_si
 	fin_mientras
 	Mientras(no FF de Alumnos)
+		leer fin de fichero Alumno
 		Leer registro de Alumnos
 		Escribir registro de Alumnos en Temporal
 	Fin mientras
@@ -79,10 +81,11 @@ public class ActualizaFichero {
 	public static void main(String[] args) {
 		// Declaración de objetos y otras variables de interés
 		Alumno viejo,actual;
-
+		int eofAlumno=1,eofActualizado=1;
 		File Maestro = new File("src\\hogwartsFichero\\Alumnos.dat");
 		FileInputStream alumno;
 		DataInputStream alumnoIn = null;
+		BufferedInputStream bufferAlumno,bufferActualizado;
 		File Movimiento = new File("src\\hogwartsFichero\\Alumnos_act.dat");
 		FileInputStream actualizado;
 		DataInputStream actualizadoIn = null;
@@ -90,11 +93,13 @@ public class ActualizaFichero {
 		try {
 			// abrirAlumnosLeer (Alumnos)
 			alumno = new FileInputStream(Maestro);
-			alumnoIn = new DataInputStream(alumno);
-
+			bufferAlumno=new BufferedInputStream(alumno);
+			alumnoIn = new DataInputStream(bufferAlumno);
+			
 			// abrirAlumnos_actLeer (Actualizado)
 			actualizado = new FileInputStream(Movimiento);
-			actualizadoIn = new DataInputStream(actualizado);
+			bufferActualizado=new BufferedInputStream(actualizado);
+			actualizadoIn = new DataInputStream(bufferActualizado);
 
 			// abrirAlumnos_tempEscribir (Temporal)
 			temporal=new EscribeBinario("Alumnos_temp",true);
@@ -105,9 +110,18 @@ public class ActualizaFichero {
 			// leer registro Actualizado
 			actual=leeAlumno(actualizadoIn);
 			
-			
 			// mientras (no FF de Actualizado y no FF de Alumnos)
-			while (alumnoIn.read()!=-1 && actualizadoIn.read()!=-1 ){
+			while (eofAlumno!=-1 && eofActualizado!=-1 ){
+				//leer fin de fichero Alumnos
+				bufferAlumno.mark(10);
+				eofAlumno=alumnoIn.read();
+				bufferAlumno.reset();
+				
+				//leer fin de fichero Actualizado
+				bufferActualizado.mark(10);
+				eofActualizado=actualizadoIn.read();
+				bufferActualizado.reset();
+				
 				
 				// Si(ID_Alumnos == ID_Actualizado)
 				if (viejo.getID() == actual.getID()) {
@@ -132,7 +146,12 @@ public class ActualizaFichero {
 				}// Fin_si
 			}// fin_mientras
 			// Mientras(no FF de Alumnos)
-			while(alumnoIn.read()!=-1){
+			while(eofAlumno!=-1){
+				//leer fin de fichero Alumnos
+				bufferAlumno.mark(10);
+				eofAlumno=alumnoIn.read();
+				bufferAlumno.reset();
+				
 				// Leer registro de Alumnos
 				viejo=leeAlumno(alumnoIn);
 				// Escribir registro de Alumnos en Temporal
@@ -145,12 +164,12 @@ public class ActualizaFichero {
 		} catch (IOException e) {
 			System.out.println(e);
 		}finally{
-			/*temporal.cierra();
-			File maestroActualizado=new File("src\\hogwartsFichero\\Alumnos_final.dat");
+			temporal.cierra();
+			File maestroActualizado=new File("src\\hogwartsFichero\\Alumnos_temp.dat");
 			Maestro.delete();
 			boolean renombrado=maestroActualizado.renameTo(Maestro);
 			Movimiento.delete();
-			System.out.println(renombrado);*/
+			System.out.println(renombrado);
 		}
 	}
 }
