@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import hogwartsMalDiseñado.Alumno;
+import hogwartsNuevo.Alumno;
 import hogwartsNuevo.FicheroAlumno;
 
 public class FicheroAlumnoTest {
@@ -41,6 +41,12 @@ public class FicheroAlumnoTest {
 		String esperada="Hola Mundo";
 		String actual=utilidad.leeTexto("hogwartsBueno\\testHogwartsNuevo\\test.txt");
 		assertEquals(esperada, actual);
+	}
+	
+	@Test
+	public void escribeAlumnoTest(){
+		Alumno a=new Alumno("Javi","Ruiz",3.26);
+		utilidad.escribeAlumno("hogwartsBueno\\testHogwartsNuevo\\test.txt", a);
 	}
 	
 	@Test
