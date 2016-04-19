@@ -1,6 +1,6 @@
 package crea;
 
-import hogwartsFichero.EscribeFichero;
+import hogwartsMalDiseñado.EscribeFichero;
 
 public class CreaCodigo {
 

@@ -64,7 +64,7 @@
  * mientras opcion diferente de 0
  * Fin
  */
-package hogwartsFichero;
+package hogwartsMalDiseñado;
 
 import java.util.Date;
 import java.util.Scanner;

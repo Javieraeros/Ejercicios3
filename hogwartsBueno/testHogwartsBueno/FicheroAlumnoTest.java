@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import hogwartsFichero.Alumno;
+import hogwartsMalDiseñado.Alumno;
 import hogwartsNuevo.FicheroAlumno;
 
 public class FicheroAlumnoTest {

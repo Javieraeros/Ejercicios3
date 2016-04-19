@@ -30,7 +30,7 @@
  * coid cierra();
  */
  
-package hogwartsFichero;
+package hogwartsMalDiseñado;
 
 import java.io.*;
 

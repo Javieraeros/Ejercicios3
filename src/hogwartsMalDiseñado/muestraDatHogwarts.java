@@ -14,7 +14,7 @@
  * 		cierraFichero
  * 	Fin
  */
-package hogwartsFichero;
+package hogwartsMalDiseñado;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;

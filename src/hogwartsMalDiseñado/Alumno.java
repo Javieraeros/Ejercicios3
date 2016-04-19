@@ -49,7 +49,7 @@
  * int hashCode();
  * int compareTo(Alumno comparado);
  */
-package hogwartsFichero;
+package hogwartsMalDiseñado;
 
 import java.io.*;
 import java.lang.annotation.*;

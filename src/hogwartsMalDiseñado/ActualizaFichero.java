@@ -40,7 +40,7 @@
 	Fin mientras
 fin
 */
-package hogwartsFichero;
+package hogwartsMalDiseñado;
 
 import java.io.*;
 
