@@ -38,7 +38,7 @@
  * 
  * Métodos añadidos:
  * void tomaID();
- * 
+ * String cadena()
  * 
  * *********************
  * Métodos Sobreescritos
