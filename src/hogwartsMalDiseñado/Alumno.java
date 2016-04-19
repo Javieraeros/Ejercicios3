@@ -5,8 +5,8 @@
  * Nombre cadena, consultable y modificable
  * Apellidos cadena,consultable y modificable
  * Nota real,consultable y modificable
- * ID entero. Se usará para identificar de forma unívoca a un alumno, se tomará del fichero correspondiente,
- * 			el id+1 del último alumno
+ * ID entero. Se usarï¿½ para identificar de forma unï¿½voca a un alumno, se tomarï¿½ del fichero correspondiente,
+ * 			el id+1 del ï¿½ltimo alumno
  * 
  * Derivadas:
  * 
@@ -156,13 +156,13 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 		}
 	}
 
-	// Métodos Añadidos
+	// Mï¿½todos Aï¿½adidos
 	public String cadena() {
 		return (ID + " " + nombre + " " + apellidos + " " + nota);
 	}
 
-	/*Necesito un ID único e invariable, por eso creo este método
-	 * Si usase hashCode, el "ID" cambiaría cada vez qeu cambia cualquiera de los atributos que use
+	/*Necesito un ID ï¿½nico e invariable, por eso creo este mï¿½todo
+	 * Si usase hashCode, el "ID" cambiarï¿½a cada vez qeu cambia cualquiera de los atributos que use
 	 * para gener el hashCode
 	 */
 	public int tomaID() {
@@ -182,7 +182,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 				for (int i = 0; i < apellido; i++) {
 					in.readChar();
 				}
-				//LEE LA NOTA Javié
+				//LEE LA NOTA Javiï¿½
 				in.readDouble();
 				sigueLeer=in.available();
 			}
