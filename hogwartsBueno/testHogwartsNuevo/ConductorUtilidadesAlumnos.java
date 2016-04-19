@@ -1,5 +1,12 @@
-package hogwartsNuevo;
+package testHogwartsNuevo;
 import java.util.Vector;
+
+import hogwartsNuevo.Alumno;
+import hogwartsNuevo.Alumnos;
+import hogwartsNuevo.ApellidosEstudiantesHogwarts;
+import hogwartsNuevo.NombresEstudiantesHogwarts;
+import hogwartsNuevo.UtilidadesAlumnos;
+
 import java.util.Random;
 public class ConductorUtilidadesAlumnos
 {

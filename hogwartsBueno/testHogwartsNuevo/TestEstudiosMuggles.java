@@ -1,4 +1,8 @@
-package hogwartsNuevo;
+package testHogwartsNuevo;
+
+import hogwartsNuevo.Alumnos;
+import hogwartsNuevo.EstudiosMuggles;
+import hogwartsNuevo.UtilidadesAlumnos;
 
 public class TestEstudiosMuggles {
 	

@@ -1,4 +1,6 @@
-package hogwartsNuevo;
+package testHogwartsNuevo;
+
+import hogwartsNuevo.Alumno;
 
 public class testAlumno {
 	
