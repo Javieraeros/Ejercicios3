@@ -5,15 +5,15 @@ import java.io.*;;
 public class FicheroAlumno {
 	/*
 	 * Interfaz
-	 * Cabecera: String leeTexto(String nombreFichero)
-	 * Proceso:Lee la primera linea del archivo de texto correspondiente
+	 * Cabecera: String leeAlumno(String nombreFichero)
+	 * Proceso:Lee el primer Alumno del archivo de texto correspondiente
 	 * Precondiciones:Ninguna
 	 * Entrada:La ruta del fichero
 	 * Salida:Una cadena
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Cadena asociada al nombre
 	 */
-	public String leeTexto(String nombreFichero) {
+	public String leeAlumno(String nombreFichero) {
 		String devuelve = null;
 		try {
 			File archivo = new File(nombreFichero);
@@ -30,16 +30,45 @@ public class FicheroAlumno {
 
 	/*
 	 * Interfaz
-	 * Cabecera: String leeTexto(String nombreFichero,int linea)
-	 * Proceso:Lee la linea indicada por el parámetro del archivo de texto correspondiente
+	 * Cabecera:void muestraAlumnos(String nombreFichero)
+	 * Proceso:Lee el fichero deonde estén almacenados todos los Alumnos y los pinta en pantalla
+	 * Precondiciones:Ninguna
+	 * Entrada:La ruta del fichero
+	 * Salida:nada, pinta en pantalla
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Cadena asociada al nombre
+	 */
+	public void muestraAlumnos(String nombreFichero) {
+		try {
+			File archivo = new File(nombreFichero);
+			FileReader fichero = new FileReader(archivo);
+			BufferedReader bw = new BufferedReader(fichero);
+			String linea=bw.readLine();
+			while(linea!=null){
+				System.out.println(linea);
+				linea=bw.readLine();
+			}
+			bw.close();
+			fichero.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+	
+	
+	
+	/*
+	 * Interfaz
+	 * Cabecera: String leeAlumno(String nombreFichero,int linea)
+	 * Proceso:Lee el alumno indicado por el parámetro del archivo de texto correspondiente
 	 * Precondiciones:número de linea mayor que 0, y menor que fin de fichero
 	 * Entrada:La ruta del fichero
-	 * 			un entero para la linea
+	 * 			un entero para el Alumno
 	 * Salida:Una cadena
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Cadena asociada al nombre
 	 */
-	public String leeTexto(String nombreFichero, int linea) {
+	public String leeAlumno(String nombreFichero, int linea) {
 		String devuelve = null;
 		if (linea > 0) {
 			try {
@@ -62,17 +91,17 @@ public class FicheroAlumno {
 	}
 	/*
 	 * Interfaz
-	 * Cabecera: String[] leeTexto(String nombreFichero,int lineaInicio,int numeroLeer)
-	 * Proceso:Lee el conjunto de lineas igual a numeroLeer, empezando por lineaInicio
+	 * Cabecera: String[] leeAlumno(String nombreFichero,int lineaInicio,int numeroLeer)
+	 * Proceso:Lee el conjunto de Alumnos igual a numeroLeer, empezando por lineaInicio
 	 * Precondiciones:número de linea mayor que 0, y menor que fin de fichero,numeroLeer mayor que 0
 	 * Entrada:La ruta del fichero
-	 * 			un entero para la linea
+	 * 			un entero para el primer Alumno
 	 * 			un entero para el número de lineas
 	 * Salida:Un array de cadenas
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Array de cadenas asociada al nombre
 	 */
-	public String[] leeTexto(String nombreFichero, int lineaInicio,int numeroLeer) {
+	public String[] leeAlumno(String nombreFichero, int lineaInicio,int numeroLeer) {
 		String[] devuelve = new String[numeroLeer];
 		if (lineaInicio > 0 && numeroLeer>0) {
 			try {
@@ -99,22 +128,22 @@ public class FicheroAlumno {
 
 	/* 
 	 * Interfaz 
-	 * Cabecera:void escribeTexto(String nombreFichero,String info)
+	 * Cabecera:void escribeTexto(String nombreFichero,String Alumno)
 	 * Proceso:escribe una cadena de texto en el fichero indicado, añadiendo un salto de línea
 	 * Precondiciones:Ningna
 	 * Entrada:Una cadena para el nombre(ruta) del fichero
-	 * 			Una cadena con lo que queremos escribir
+	 * 			Una cadena con el Alumno que queramos escribir
 	 * Salida:Nada
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:El archivo quedará escrito y cerrado. Por defecto el archivo no se machaca a si mismo
 	 * 					sino que escribe después de la última escritura
 	 */
-	public void escribeTexto(String nombreFichero, String info) {
+	public void escribeTexto(String nombreFichero, String alumno) {
 		try {
 			File archivo = new File(nombreFichero);
 			FileWriter fichero = new FileWriter(archivo, true);
 			BufferedWriter bw = new BufferedWriter(fichero);
-			bw.write(info + "\r\n");
+			bw.write(alumno + "\r\n");
 			bw.close();
 			fichero.close();
 		} catch (IOException e) {
@@ -149,31 +178,7 @@ public class FicheroAlumno {
 
 	}
 	
-	/* 
-	 * Interfaz 
-	 * Cabecera:void escribeTexto(String nombreFichero,String info,boolean aniadir)
-	 * Proceso:escribe una cadena de texto en el fichero indicado,sin añadir salto de linea
-	 * Precondiciones:Ningna
-	 * Entrada:Una cadena para el nombre(ruta) del fichero
-	 * 			Una cadena con lo que queremos escribir
-	 * 			Un booleano para indicar si queremos machacar el fichero(false) o si queremos escribir
-	 * 			después de la última escritura(true)
-	 * Salida:Nada
-	 * Entrada/Salida:Nada
-	 * Postcondiciones:El archivo quedará escrito y cerrado
-	 */
-	public void escribeTexto(String nombreFichero, String info,boolean aniadir) {
-		try {
-			File archivo = new File(nombreFichero);
-			FileWriter fichero = new FileWriter(archivo, aniadir);
-			BufferedWriter bw = new BufferedWriter(fichero);
-			bw.write(info);
-			bw.close();
-			fichero.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-	}
+	
 	/* 
 	 * Interfaz 
 	 * Cabecera: Alumno convierteLineaAlumno(String nombreFichero,int Linea)
