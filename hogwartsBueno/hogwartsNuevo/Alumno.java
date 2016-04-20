@@ -60,6 +60,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	private String apellidos;
 	private double nota;
 	private int ID;
+	private static int IDTodos=0;
 
 	// Constructores
 	public Alumno() {
@@ -126,41 +127,49 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	 */
 	public int tomaID() {
 		int id=1;
-		try {
-			FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataInputStream in = new DataInputStream(leerID);
-			/*
-			 * Puesto que sabesmos que, si el fichero existe,solo tiene escrito un entero,
-			 * no hace falta saber si hay algo que leer,ni cuanto hay
-			 * puesto que solo habrá un entero.
-			 */
-			id = in.readInt();
-			id=id+1;
-			in.close();
-			leerID.close();
-			FileOutputStream escribeID=new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataOutputStream out=new DataOutputStream(escribeID);
-			out.writeInt(id);
-			escribeID.close();
+		if(IDTodos==0){
+			try {
+				FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataInputStream in = new DataInputStream(leerID);
+				/*
+				 * Puesto que sabesmos que, si el fichero existe,solo tiene escrito un entero,
+				 * no hace falta saber si hay algo que leer,ni cuanto hay
+				 * puesto que solo habrá un entero.
+				 */
+				//Leo el ID del archivo y se lo asigno a IDTodos
+				id = in.readInt();
+				id=id+1;
+				IDTodos=id;
+				
+				//Cerramos y escribimos el nuevo ID
+				in.close();
+				leerID.close();
+				FileOutputStream escribeID=new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataOutputStream out=new DataOutputStream(escribeID);
+				out.writeInt(id);
+				escribeID.close();
+				
+			} catch (FileNotFoundException e1) {
+				System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
+				System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
+			} catch (IOException e) {
+				System.out.println(e);
+			}
 			
-		} catch (FileNotFoundException e1) {
-			System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
-			System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
-		} catch (IOException e) {
-			System.out.println(e);
+		}else{
+			id=IDTodos+1;
+			IDTodos++;
+			try {
+				FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataOutputStream out=new DataOutputStream(escribeID);
+				out.writeInt(id);
+				escribeID.close();
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
 		}
-			
-		try {
-			FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataOutputStream out=new DataOutputStream(escribeID);
-			out.writeInt(id);
-			escribeID.close();
-		} catch (FileNotFoundException e) {
-			System.out.println(e);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-			
 		
 		return id;
 	}
