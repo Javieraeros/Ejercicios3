@@ -83,7 +83,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 
 	//Constructor que no escribe en un fichero el alumno creado (necesario para las actualizaciones)
 	 
-	public Alumno(String nombre, String apellidos, double nota,int id) throws IllegalArgumentException {
+	public Alumno(int id,String nombre, String apellidos, double nota) throws IllegalArgumentException {
 		if (nota < 0) {
 			throw new IllegalArgumentException("Error, la nota no puede ser menor que 0. Alumno no creado");
 		} else {

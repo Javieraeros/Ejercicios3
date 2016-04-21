@@ -30,11 +30,6 @@ public class testAlumno {
 		// yo=Harry.clone();
 		// Harry.setNombre("Pene");
 		// System.out.println(yo.getNombre()+" "+Harry.getNombre());
-		FicheroAlumno util = new FicheroAlumno();
-		util.muestraAlumnos("hogwartsBueno//testHogwartsNuevo//test.txt");
-		for(int i=0;i<100000000;i++){
-			yo=new Alumno("Javier","Ruiz",0);
-			util.escribeAlumno("hogwartsBueno//testHogwartsNuevo//testAlumno.txt", yo);
-		}
+		
 	}
 }

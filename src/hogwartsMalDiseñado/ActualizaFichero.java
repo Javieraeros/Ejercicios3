@@ -72,7 +72,7 @@ public class ActualizaFichero {
 				apellido = apellido + leer.readChar();
 			}
 			nota = leer.readDouble();
-			a = new Alumno(nombre, apellido, nota,id);
+			a = new Alumno(id,nombre, apellido, nota);
 		} catch (IOException e) {
 			
 		}

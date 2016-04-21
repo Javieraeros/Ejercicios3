@@ -78,10 +78,25 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 			this.nombre = nombre;
 			this.apellidos = apellidos;
 			this.nota = nota;
-			this.ID = tomaID();
+			this.ID = tomaIDVieja();
 		}
 	}
 
+	/*Este constructor solo se usará para crear un alumno con un ID fijo,en métodos de lectura
+	  de la clase gestionadora de ficheros de Alumnos 
+	  */ 
+	public Alumno(int ID,String nombre,String apellidos,double nota)throws IllegalArgumentException {
+		if (nota < 0) {
+			throw new IllegalArgumentException("Error, la nota no puede ser menor que 0. Alumno no creado");
+		} else {
+			this.nombre = nombre;
+			this.apellidos = apellidos;
+			this.nota = nota;
+			this.ID = ID;
+		}
+	}
+	
+	
 	// Consultores
 	public int getID() {
 		return this.ID;
@@ -183,6 +198,37 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 
 		return id;
 	}
+	
+	public int tomaIDVieja() {
+		int id=1;
+		try {
+			FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+			DataInputStream in = new DataInputStream(leerID);
+			id=in.readInt();
+			id=id+1;
+			in.close();
+			leerID.close();
+		} catch (FileNotFoundException e1) {
+			System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
+			System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		try{
+		FileOutputStream escribeID=new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+		DataOutputStream out=new DataOutputStream(escribeID);
+		out.writeInt(id);
+		escribeID.close();
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	
 	/*
 	 * Interfaz Cabecera: boolean equals(Object o) Proceso: MÃ©todo que devuelve
 	 * si un objeto es IGUAL a otro Precondiciones:Ninguna Entrada:1 objeto
@@ -195,7 +241,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 		boolean resul = false;
 		if (o != null && o instanceof Alumno) {
 			Alumno a = (Alumno) o;
-			resul = (a.getNombre() == this.nombre && a.getApellidos() == this.apellidos && a.getNota() == this.nota);
+			resul = (a.getNombre().equals(this.nombre)  && a.getApellidos().equals(this.apellidos) && a.getNota() == this.nota);
 		}
 		return resul;
 	}

@@ -1,0 +1,10 @@
+Alumno ID rápida:
+
+fecha incio escritura en fichero texto: Thu Apr 21 17:34:22 CEST 2016
+Que has hecho que no encuentro el fichero Alumnos.dat??
+Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR
+fecha fin escritura en fichero texto: Thu Apr 21 17:36:15 CEST 2016
+fecha incio escritura en fichero binario: Thu Apr 21 17:36:15 CEST 2016
+fecha fin escritura en fichero binario: Thu Apr 21 17:37:41 CEST 2016
+
+Alumno ID lenta:
