@@ -78,7 +78,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 			this.nombre = nombre;
 			this.apellidos = apellidos;
 			this.nota = nota;
-			this.ID = tomaIDVieja();
+			this.ID = tomaID();
 		}
 	}
 
@@ -168,32 +168,19 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 			} catch (IOException e) {
 				System.out.println(e);
 			}
-			try{
-				FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-				DataOutputStream out = new DataOutputStream(escribeID);
-				out.writeInt(id);
-				escribeID.close();
-
-			} catch (FileNotFoundException e1) {
-				System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
-				System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
-			} catch (IOException e) {
-				System.out.println(e);
-			}
-
 		} else {
 			id = IDTodos + 1;
 			IDTodos++;
-			try {
-				FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-				DataOutputStream out = new DataOutputStream(escribeID);
-				out.writeInt(id);
-				escribeID.close();
-			} catch (FileNotFoundException e) {
-				System.out.println(e);
-			} catch (IOException e) {
-				System.out.println(e);
-			}
+		}
+		try {
+			FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+			DataOutputStream out = new DataOutputStream(escribeID);
+			out.writeInt(id);
+			escribeID.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
 		}
 
 		return id;

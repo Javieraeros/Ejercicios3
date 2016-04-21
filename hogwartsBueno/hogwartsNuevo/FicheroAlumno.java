@@ -294,13 +294,13 @@ public class FicheroAlumno {
 	}
 	
 	/*
+	 * Crea un método que te guarde un array de Alumnos(cuestiones de rapidez)
 	 * Falta crear escribeObjetoBinario y leeObjetoBinario
 	 * Recuerda crear la clase miObjectOutputStream
 	 * Cada vez que se cree un alumno (en un método o en hogwarts) usa el método correspondiente
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
-	 * Añade las funcionalidades correspondientes para crear el log
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
 	 * Crea un principal que te muestre el fichero correspondiente con la funcionalidad correspondiente
-	 * No uses rutas relaticas y/o absolutas
+	 * No uses rutas relativas y/o absolutas
 	 */
 }
