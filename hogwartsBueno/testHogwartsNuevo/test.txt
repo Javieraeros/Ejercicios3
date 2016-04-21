@@ -1,2 +1,17 @@
 Hola Mundo
+<<<<<<< HEAD
+<<<<<<< HEAD
 Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+Hola Mundo
+=======
+>>>>>>> parent of acd29d9... ya
+=======
+Hola Mundo
+>>>>>>> refs/remotes/origin/master

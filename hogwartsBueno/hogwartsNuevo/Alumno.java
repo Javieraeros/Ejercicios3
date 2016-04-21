@@ -60,6 +60,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	private String apellidos;
 	private double nota;
 	private int ID;
+	private static int IDTodos = 0;
 
 	// Constructores
 	public Alumno() {
@@ -67,10 +68,9 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 		apellidos = "Potter";
 		nota = 5;
 		ID = tomaID();
-		
+
 	}
 
-	
 	public Alumno(String nombre, String apellidos, double nota) throws IllegalArgumentException {
 		if (nota < 0) {
 			throw new IllegalArgumentException("Error, la nota no puede ser menor que 0. Alumno no creado");
@@ -83,9 +83,10 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	}
 
 	// Consultores
-	public int getID(){
+	public int getID() {
 		return this.ID;
 	}
+
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -97,7 +98,7 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	public double getNota() {
 		return this.nota;
 	}
-	
+
 	// Modificadores
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -120,48 +121,66 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 		return (ID + " " + nombre + " " + apellidos + " " + nota);
 	}
 
-	/*Necesito un ID único e invariable, por eso creo este método
-	 * Si usase hashCode, el "ID" cambiaría cada vez qeu cambia cualquiera de los atributos que use
+	/*
+	 * Necesito un ID único e invariable, por eso creo este método
+	 * Si usase hashCode, el "ID" cambiaría cada vez qeu cambia cualquiera de
+	 * los atributos que use
 	 * para gener el hashCode
 	 */
 	public int tomaID() {
-		int id=1;
-		try {
-			FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataInputStream in = new DataInputStream(leerID);
-			/*
-			 * Puesto que sabesmos que, si el fichero existe,solo tiene escrito un entero,
-			 * no hace falta saber si hay algo que leer,ni cuanto hay
-			 * puesto que solo habrá un entero.
-			 */
-			id = in.readInt();
-			id=id+1;
-			in.close();
-			leerID.close();
-			FileOutputStream escribeID=new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataOutputStream out=new DataOutputStream(escribeID);
-			out.writeInt(id);
-			escribeID.close();
-			
-		} catch (FileNotFoundException e1) {
-			System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
-			System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
-		} catch (IOException e) {
-			System.out.println(e);
+		int id = 1;
+		if (IDTodos == 0) {
+			try {
+				FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataInputStream in = new DataInputStream(leerID);
+				/*
+				 * Puesto que sabesmos que, si el fichero existe,solo tiene
+				 * escrito un entero,
+				 * no hace falta saber si hay algo que leer,ni cuanto hay
+				 * puesto que solo habrá un entero.
+				 */
+				// Leo el ID del archivo y se lo asigno a IDTodos
+				id = in.readInt();
+				id = id + 1;
+				IDTodos = id;
+
+				// Cerramos y escribimos el nuevo ID
+				in.close();
+				leerID.close();
+			} catch (FileNotFoundException e1) {
+				System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
+				System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+			try{
+				FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataOutputStream out = new DataOutputStream(escribeID);
+				out.writeInt(id);
+				escribeID.close();
+
+			} catch (FileNotFoundException e1) {
+				System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
+				System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+
+		} else {
+			id = IDTodos + 1;
+			IDTodos++;
+			try {
+				FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				DataOutputStream out = new DataOutputStream(escribeID);
+				out.writeInt(id);
+				escribeID.close();
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
 		}
-			
-		try {
-			FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
-			DataOutputStream out=new DataOutputStream(escribeID);
-			out.writeInt(id);
-			escribeID.close();
-		} catch (FileNotFoundException e) {
-			System.out.println(e);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-			
-		
+
 		return id;
 	}
 	/*
@@ -203,14 +222,17 @@ public class Alumno implements Cloneable, Comparable<Alumno> {
 	}
 
 	/*
-	 * Interfaz Cabecera: int compareTo(Alumno comparado) Proceso MÃ©todo que
-	 * compara si un dos Alumnos son IGUALES Precondiciones:Nada Entrada:1
-	 * Alumno Salida:1 Entero Entrada/Salida:Nada Postcondiciones:Devuelve 1 si
-	 * el Alumno que usa el mÃ©todo es mayor que el Alumno que paso por
-	 * parametro 0 si son iguales, -1 en caso contrario. Un Alumno es mayor que
-	 * otro si la primera, segunda o sucesivas letras de su apellido son
-	 * anteriores a las letras de otro Alumno. En caso de que tengan el mismo
-	 * apellido,se comparan por nombre
+	 * Interfaz Cabecera: int compareTo(Alumno comparado) 
+	 * Proceso Metodo que
+	 * compara si un dos Alumnos son IGUALES 
+	 * Precondiciones:Nada 
+	 * Entrada:1 Alumno 
+	 * Salida:1 Entero 
+	 * Entrada/Salida:Nada 
+	 * Postcondiciones:Devuelve 1 si el Alumno que usa el mÃ©todo es mayor que el Alumno que paso por
+	 * parametro 0 si son iguales, -1 en caso contrario. Un Alumno es mayor que otro si la primera, segunda o 
+	 * sucesivas letras de su apellido son anteriores a las letras de otro Alumno. 
+	 * En caso de que tengan el mismo apellido,se comparan por nombre
 	 */
 
 	@Override
