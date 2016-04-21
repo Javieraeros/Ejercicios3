@@ -128,7 +128,7 @@ public class FicheroAlumno {
 
 	/* 
 	 * Interfaz 
-	 * Cabecera:void escribeTexto(String nombreFichero,String Alumno)
+	 * Cabecera:void escribeTexto(String nombreFichero,String texto)
 	 * Proceso:escribe una cadena de texto en el fichero indicado, añadiendo un salto de línea
 	 * Precondiciones:Ningna
 	 * Entrada:Una cadena para el nombre(ruta) del fichero
@@ -138,12 +138,12 @@ public class FicheroAlumno {
 	 * Postcondiciones:El archivo quedará escrito y cerrado. Por defecto el archivo no se machaca a si mismo
 	 * 					sino que escribe después de la última escritura
 	 */
-	public void escribeTexto(String nombreFichero, String alumno) {
+	public void escribeTexto(String nombreFichero, String texto) {
 		try {
 			File archivo = new File(nombreFichero);
 			FileWriter fichero = new FileWriter(archivo, true);
 			BufferedWriter bw = new BufferedWriter(fichero);
-			bw.write(alumno + "\r\n");
+			bw.write(texto + "\r\n");
 			bw.close();
 			fichero.close();
 		} catch (IOException e) {
@@ -181,14 +181,31 @@ public class FicheroAlumno {
 	
 	/* 
 	 * Interfaz 
-	 * Cabecera: Alumno convierteLineaAlumno(String nombreFichero,int Linea)
+	 * Cabecera: Alumno convierteLineaAlumno(String nombreFichero,int ID)
 	 * Proceso:Devuelve un alumno a partir de la linea de un fichero
 	 * Precondiciones:linea mayor que 0 y menor que la longitud del archivo
-	 * Entrada:
-	 * Salida:
-	 * Entrada/Salida:
-	 * Postcondiciones:
+	 * Entrada:Un string como ruta del fichero
+	 * 			El id/linea del alumno que queremos leer
+	 * Salida:Un alumno
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Alumno asociado al nombre, devolverá alumno null en caso de error
 	 */
+	public Alumno convierteLineaAlumno(String nombreFichero,int ID){
+		Alumno devuelve=null;
+		try{
+			File leer=new File(nombreFichero);
+			FileReader fichero=new FileReader(leer);
+			BufferedReader leeAlumno=new BufferedReader(fichero);
+			for(int i=0;i<ID;i++){
+				leeAlumno.readLine();
+			}
+			/*no acabada*/
+		}catch(IOException e){
+			System.out.println(e);
+		}
+		return devuelve;
+	}
+	
 	/*
 	 * Falta crear escribeObjetoBinario y leeObjetoBinario
 	 * Recuerda crear la clase miObjectOutputStream
