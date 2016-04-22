@@ -55,7 +55,7 @@ public class FicheroAlumnoTest {
 	public void convierteLineaAlumnoTest(){
 		Alumno a=new Alumno(1,"Javi","Ruiz",3.26);
 		utilidad.escribeAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumnoConvierte.txt", a);
-		Alumno b=utilidad.convierteLineaAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumnoConvierte.txt", 1);
+		Alumno b=utilidad.convierteAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumnoConvierte.txt", 1);
 		assertEquals(a,b);
 	}
 }

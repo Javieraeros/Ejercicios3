@@ -44,9 +44,17 @@ public class FicheroAlumno {
 			File archivo = new File(nombreFichero);
 			FileReader fichero = new FileReader(archivo);
 			BufferedReader bw = new BufferedReader(fichero);
+			
+			//Lectura anticipada
 			String linea=bw.readLine();
+			StringTokenizer leeid;
+			String id;
 			while(linea!=null){
-				System.out.println(linea);
+				leeid=new StringTokenizer(linea);
+				id=leeid.nextToken();
+				if(!id.equals("0")){
+					System.out.println(linea);
+				}
 				linea=bw.readLine();
 			}
 			bw.close();
@@ -184,30 +192,41 @@ public class FicheroAlumno {
 	/* 
 	 * Interfaz 
 	 * Cabecera: Alumno convierteLineaAlumno(String nombreFichero,int ID)
-	 * Proceso:Devuelve un alumno a partir de la linea de un fichero
-	 * Precondiciones:linea mayor que 0 y menor que la longitud del archivo
+	 * Proceso:Devuelve un alumno a partir de la id de dicho alumno y del fichero especificado
+	 * Precondiciones:ID mayor que 0
 	 * Entrada:Un string como ruta del fichero
-	 * 			El id/linea del alumno que queremos leer
+	 * 			El id del alumno que queremos leer
 	 * Salida:Un alumno
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Alumno asociado al nombre, devolverá alumno null en caso de error
 	 */
-	public Alumno convierteLineaAlumno(String nombreFichero,int ID){
+	public Alumno convierteAlumno(String nombreFichero,int ID){
 		Alumno devuelve=null;
 		try{
 			File leer=new File(nombreFichero);
 			FileReader fichero=new FileReader(leer);
 			BufferedReader leeAlumno=new BufferedReader(fichero);
-			for(int i=0;i<ID;i++){
-				leeAlumno.readLine();
+			String linea=leeAlumno.readLine();
+			StringTokenizer alumnoTok=new StringTokenizer(linea);
+			while(Integer.parseInt(alumnoTok.nextToken())!=ID && linea!=null){
+				linea=leeAlumno.readLine();
+				alumnoTok=new StringTokenizer(linea);
 			}
-			String alumnoDividir=leeAlumno.readLine();
-			StringTokenizer alumno=new StringTokenizer(alumnoDividir);
-			int id=Integer.parseInt(alumno.nextToken());
-			String nombre=alumno.nextToken();
-			String apellido=alumno.nextToken();
-			double nota=Double.parseDouble(alumno.nextToken());
-			devuelve=new Alumno(id,nombre,apellido,nota);
+			/*
+			 * Al usar el StringTokenizer, el puntero de AlumnoTok apunta al nombre de la linea actual,
+			 * por lo que para poner el id de ese alumno, usaremos el ID que nos pasan por parámetro
+			 * ya que solo se lo pondremos si el alumno existe gracias a linea!=null
+			 */
+			//Creación de alumno a través de cadena
+			if(linea!=null){ //nos aseguramos de que no ha llegado al final del fichero
+				int id=ID;
+				String nombre=alumnoTok.nextToken();
+				String apellido=alumnoTok.nextToken();
+				double nota=Double.parseDouble(alumnoTok.nextToken());
+				devuelve=new Alumno(id,nombre,apellido,nota);
+			}
+			leeAlumno.close();
+			fichero.close();
 		}catch(IOException e){
 			System.out.println(e);
 		}
@@ -270,21 +289,22 @@ public class FicheroAlumno {
 				
 				//Leo el id
 				id=lee.readInt();
-				
-				//Leo el nombre
-				tamanyoNombre=lee.readInt();
-				for(int i=0;i<tamanyoNombre;i++){
-					nombre=nombre+lee.readChar();
+				if(id!=0){  //para evitar mostrar los alumnos borrados por marca
+					//Leo el nombre
+					tamanyoNombre=lee.readInt();
+					for(int i=0;i<tamanyoNombre;i++){
+						nombre=nombre+lee.readChar();
+					}
+					
+					//Leo el apellido
+					tamanyoApellido=lee.readInt();
+					for(int i=0;i<tamanyoApellido;i++){
+						apellido=apellido+lee.readChar();
+					}
+					nota=lee.readDouble();
+					a=new Alumno(id,nombre,apellido,nota);
+					System.out.println(a.cadena());
 				}
-				
-				//Leo el apellido
-				tamanyoApellido=lee.readInt();
-				for(int i=0;i<tamanyoApellido;i++){
-					apellido=apellido+lee.readChar();
-				}
-				nota=lee.readDouble();
-				a=new Alumno(id,nombre,apellido,nota);
-				System.out.println(a.cadena());
 			}while(lee.available()>0);
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -294,9 +314,15 @@ public class FicheroAlumno {
 	}
 	
 	/*
-	 * Crea un método que te guarde un array de Alumnos(cuestiones de rapidez)
-	 * Falta crear escribeObjetoBinario y leeObjetoBinario
-	 * Recuerda crear la clase miObjectOutputStream
+	 * Crea un método que te guarde un array de Alumnos(cuestiones de rapidez) //opcional
+	 * Crea un método que te de información de un alumno(binario) introduciendo el id de este
+	 * Falta crear escribeObjetoBinario y leeObjetoBinario, con toda las funciones que hemos creado
+	 * para archivos de texto y binarios primitivos. SERIALIZABLE
+	 *
+	 * Crear AccessRandom, para poder crear ficheros directos.
+	 * 
+	 * Ordernar ficheros de texto y binario (primitivos y objetos)
+	 * 
 	 * Cada vez que se cree un alumno (en un método o en hogwarts) usa el método correspondiente
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
