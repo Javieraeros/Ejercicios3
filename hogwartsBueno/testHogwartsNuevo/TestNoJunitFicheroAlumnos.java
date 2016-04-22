@@ -14,7 +14,7 @@ public class TestNoJunitFicheroAlumnos {
 		//util.muestraAlumnos("hogwartsBueno\\testHogwartsNuevo\\test.txt");
 		Date fecha=new Date();
 		System.out.println("fecha incio escritura en fichero texto: "+fecha);
-		for(int i=0;i<10000;i++){
+		for(int i=0;i<50000;i++){
 			yo=new Alumno("Javier","Ruiz",0);
 			util.escribeAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumno.txt", yo);
 		}
@@ -22,7 +22,7 @@ public class TestNoJunitFicheroAlumnos {
 		System.out.println("fecha fin escritura en fichero texto: "+fecha);
 		fecha=new Date();
 		System.out.println("fecha incio escritura en fichero binario: "+fecha);
-		for(int i=0;i<10000;i++){
+		for(int i=0;i<50000;i++){
 			a=new Alumno("Javi","Ruiz",0);
 			util.escribeAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat", a);
 		}
