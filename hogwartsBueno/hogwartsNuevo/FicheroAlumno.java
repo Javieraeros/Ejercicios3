@@ -313,6 +313,65 @@ public class FicheroAlumno {
 		}
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera: public Alumno devuelveAlumnoBinario(String ruta,int id)
+	 * Proceso:devuelve el alumno seleccionado mediante el ID
+	 * Precondiciones:ninguna
+	 * Entrada:1 cadena para la ruta, 1 entero para el ID
+	 * Salida:1 alumno
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Alumno asociado al nombre
+	 */
+	
+	public Alumno devuelveAlumnoBinario(String ruta,int id){
+		Alumno devolver=null;
+		File fichero=new File(ruta);
+		boolean encontrado=false;
+		int idFichero,tamanyoNombre,tamanyoApellido;
+		String nombre="", apellido="";
+		double nota;
+		try{
+			FileInputStream leer=new FileInputStream(fichero);
+			DataInputStream in=new DataInputStream(leer);
+			do{
+				idFichero=in.readInt();
+				if(idFichero==id){
+					encontrado=true;
+					tamanyoNombre = in.readInt();
+					for (int i = 0; i < tamanyoNombre; i++) {
+						nombre=nombre+in.readChar();
+					}
+					
+					tamanyoApellido = in.readInt();
+					for (int i = 0; i < tamanyoApellido; i++) {
+						apellido=apellido+in.readChar();
+					}
+					nota=in.readDouble();
+					devolver=new Alumno(id,nombre,apellido,nota);
+				}else{
+					//Puesto que es un fichero secuencial,necesitamos saltarnos al siguiente Alumno
+					tamanyoNombre = in.readInt();
+					for (int i = 0; i < tamanyoNombre; i++) {
+						in.readChar();
+					}
+					tamanyoApellido = in.readInt();
+					for (int i = 0; i < tamanyoApellido; i++) {
+						in.readChar();
+					}
+					in.readDouble();
+				}
+				in.close();
+				leer.close();
+			}while(!encontrado && in.available()>0);
+		}catch(IOException e){
+			System.out.println(e);
+		}
+		
+		return devolver;
+	}
+	
+	
 	/*
 	 * Crea un m�todo que te guarde un array de Alumnos(cuestiones de rapidez) //opcional
 	 * Crea un m�todo que te de informaci�n de un alumno(binario) introduciendo el id de este
