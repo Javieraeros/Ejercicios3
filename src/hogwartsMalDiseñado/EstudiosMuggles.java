@@ -1,7 +1,7 @@
 /* Clase gestionadora para el ejercicio de Hogwarts
  * 
  */
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 import java.util.Vector;
 import java.util.Scanner;
 public class EstudiosMuggles {

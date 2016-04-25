@@ -1,28 +1,28 @@
 /*
  *                                                           ANALISIS
  * En el siguiente programa, crearemos una clase de Alumnos con un nombre y apellidos, y una nota mayor que 0, la cual podremos generar de 
- * forma aleatoria, dado un número de alumnos mayor que 0, o crear una nostros introduciendo alumnos hasta que queramos parar.
- * Una ve creada la clase con alumnos,se nos ofrecerá la opción de mostrar todos los alumnos de la clse, añadir o quitar alumno, 
- * mostrar la media y/o la desviación, mostrar notas relativas, mostrar la nota relativa de un alumno,volver a crear una nueva clase de alumnos
+ * forma aleatoria, dado un nï¿½mero de alumnos mayor que 0, o crear una nostros introduciendo alumnos hasta que queramos parar.
+ * Una ve creada la clase con alumnos,se nos ofrecerï¿½ la opciï¿½n de mostrar todos los alumnos de la clse, aï¿½adir o quitar alumno, 
+ * mostrar la media y/o la desviaciï¿½n, mostrar notas relativas, mostrar la nota relativa de un alumno,volver a crear una nueva clase de alumnos
  * o salir del programa.
  * 
  * 
  * ENTRADAS:
- * 		-2 enteros para las opciones de los menús
- * 		-1 entero para indicar el número de alumnos de una clase generada aleatoriamente
+ * 		-2 enteros para las opciones de los menï¿½s
+ * 		-1 entero para indicar el nï¿½mero de alumnos de una clase generada aleatoriamente
  * 		-1 alumno
- * 		-1 número para eliminar un alumno
+ * 		-1 nï¿½mero para eliminar un alumno
  * 		-Variables controladoras de bucle
  * SALIDAS:
- * 		-Nada, pintará en pantalla:
- * 			-El menú cuando sea necesario
+ * 		-Nada, pintarï¿½ en pantalla:
+ * 			-El menï¿½ cuando sea necesario
  * 			-La media
- * 			-La desviación
+ * 			-La desviaciï¿½n
  * 			-Notas relativas
  * 			-Clase Alumnos
  */
 
-/*Pseudocódigo generaliado
+/*Pseudocï¿½digo generaliado
  * Inicio
  * mostrarMenuInicialLeerValidarOpcion
  * segun opcion
@@ -39,13 +39,13 @@
  * 		caso 1:
  * 			mostrarAlumnos
  * 		caso 2:
- * 			AñadirAlumno
+ * 			Aï¿½adirAlumno
  * 		caso 3:
  * 			QuitarAlumno
  * 		caso 4:
  * 			MostrarMedia
  * 		caso 5:
- * 			MostrarDesviación
+ * 			MostrarDesviaciï¿½n
  * 		caso 6:
  * 			MostrarNotasRelativas
  * 		caso 7:
@@ -64,26 +64,26 @@
  * mientras opcion diferente de 0
  * Fin
  */
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 import java.util.Date;
 import java.util.Scanner;
 
 public class HogwartsFichero {
 	public static void menuInicial() {
-		System.out.println("Introduce el número de la opción:");
+		System.out.println("Introduce el nï¿½mero de la opciï¿½n:");
 		System.out.println("1.Crear una clase de Alumnos aleatoria");
 		System.out.println("2.Introducir Alumnos 1 a 1");
 		System.out.println("0.Salir");
 	}
 
 	public static void menuSecundario() {
-		System.out.println("Introduce el número de la opción:");
-		System.out.println("1.Mostrar la información de todos los Alumnos");
-		System.out.println("2.Añadir Alumno a la Clase");
+		System.out.println("Introduce el nï¿½mero de la opciï¿½n:");
+		System.out.println("1.Mostrar la informaciï¿½n de todos los Alumnos");
+		System.out.println("2.Aï¿½adir Alumno a la Clase");
 		System.out.println("3.Quitar Alumno de la Clase");
 		System.out.println("4.Mostrar la media de la clase");
-		System.out.println("5.Mostrar la Desviación media de la clase");
+		System.out.println("5.Mostrar la Desviaciï¿½n media de la clase");
 		System.out.println("6.Mostrar notas relativas de la clase");
 		System.out.println("7.Mostrar nota relativa de un alumno");
 		System.out.println("8.Crear una nueva clase de Alumnos");
@@ -107,24 +107,24 @@ public class HogwartsFichero {
 		// fichero.cierraFichero();//De esta forma me aseguro, que pase lo que
 		// pase, siempre se crea un log en el fichero
 		// fichero=new EscribeFichero("Hogwarts"); elimino esto porque he
-		// añadido el método flush al fichero
+		// aï¿½adido el mï¿½todo flush al fichero
 
 		// mostrarMenuInicialLeerValidarOpcion
 		do {
 			menuInicial();
 			System.out.println("Elija una opcion del menu, por favor.");
 			opcionMenu = teclado.nextInt();
-			fichero.escribe("Opción de menú " + opcionMenu);
+			fichero.escribe("Opciï¿½n de menï¿½ " + opcionMenu);
 		} while (opcionMenu < 0 || opcionMenu > 2);
 
 		switch (opcionMenu) {
 		case 1:
 			// crearClaseAleatoria
 			do {
-				System.out.println("¿Cuantos alumnos debe tener la clase?");
+				System.out.println("ï¿½Cuantos alumnos debe tener la clase?");
 				numAlumnos = teclado.nextInt();
 				if (numAlumnos < 0) {
-					fichero.escribe("El usuario ha introducido un número inválido de alumnos: " + numAlumnos);
+					fichero.escribe("El usuario ha introducido un nï¿½mero invï¿½lido de alumnos: " + numAlumnos);
 				}
 			} while (numAlumnos <= 0);
 			fichero.escribe("Se ha creado una clase aleatoria con " + numAlumnos + " alumnos");
@@ -142,7 +142,7 @@ public class HogwartsFichero {
 					nombre = teclado.next();
 					nombreValido = EstudiosMuggles.cadenaLetras(nombre);
 					if (!nombreValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + nombre);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + nombre);
 					}
 				} while (!nombreValido);
 				do {
@@ -150,20 +150,20 @@ public class HogwartsFichero {
 					apellido = teclado.next();
 					apellidoValido = EstudiosMuggles.cadenaLetras(apellido);
 					if (!apellidoValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + apellido);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + apellido);
 					}
 				} while (apellidoValido == false);
 				do {
 					System.out.println("Introduce la nota");
 					nota = teclado.nextDouble();
 					if (nota < 0) {
-						fichero.escribe("El usuario ha intentado introducir la siguiente nota no válida: " + nota);
+						fichero.escribe("El usuario ha intentado introducir la siguiente nota no vï¿½lida: " + nota);
 					}
 				} while (nota < 0);
 				Alumno nuevo = new Alumno(nombre, apellido, nota);
 				EstudiosMuggles.aniadeAlumno(alumnos, nuevo);
 				fichero.escribe("Se ha introducido el siguiente alumno: " + nombre + " " + apellido + " " + nota);
-				System.out.println("¿Desea introducir otro alumno?");
+				System.out.println("ï¿½Desea introducir otro alumno?");
 				seguir = teclado.next().charAt(0);
 				fichero.escribe(
 						"El usuario ha introducido " + seguir + " como respuesta a la pregunta si desea seguir");
@@ -177,9 +177,9 @@ public class HogwartsFichero {
 				menuSecundario();
 				opcionSubMenu = teclado.nextInt();
 				if (opcionSubMenu < 0 || opcionSubMenu > 8)
-					fichero.escribe("El usuario ha introducido la opción inválida: " + opcionSubMenu);
+					fichero.escribe("El usuario ha introducido la opciï¿½n invï¿½lida: " + opcionSubMenu);
 			} while (opcionSubMenu < 0 || opcionSubMenu > 8);
-			fichero.escribe("El usuario ha introducido la opción válida: " + opcionSubMenu);
+			fichero.escribe("El usuario ha introducido la opciï¿½n vï¿½lida: " + opcionSubMenu);
 			switch (opcionSubMenu) {
 			case 1:
 				// mostrarAlumnos
@@ -187,14 +187,14 @@ public class HogwartsFichero {
 				fichero.escribe("Se ha pintado la clase alumnos");
 				break;
 			case 2:
-				// AñadirAlumno
+				// Aï¿½adirAlumno
 				do {
 					// teclado.nextLine(); //para poder usar nextLine
 					System.out.println("Introduce el nombre");
 					nombre = teclado.next();
 					nombreValido = EstudiosMuggles.cadenaLetras(nombre);
 					if (!nombreValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + nombre);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + nombre);
 					}
 				} while (!nombreValido);
 				do {
@@ -202,14 +202,14 @@ public class HogwartsFichero {
 					apellido = teclado.next();
 					apellidoValido = EstudiosMuggles.cadenaLetras(apellido);
 					if (!apellidoValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + apellido);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + apellido);
 					}
 				} while (apellidoValido == false);
 				do {
 					System.out.println("Introduce la nota");
 					nota = teclado.nextDouble();
 					if (nota < 0) {
-						fichero.escribe("El usuario ha intentado introducir la siguiente nota no válida: " + nota);
+						fichero.escribe("El usuario ha intentado introducir la siguiente nota no vï¿½lida: " + nota);
 					}
 				} while (nota < 0);
 				Alumno nuevo = new Alumno(nombre, apellido, nota);
@@ -218,14 +218,14 @@ public class HogwartsFichero {
 				break;
 			case 3:
 				// QuitarAlumno
-				System.out.println("¿Que alumno desea eliminar?");
+				System.out.println("ï¿½Que alumno desea eliminar?");
 				do {
 					// teclado.nextLine(); //para poder usar nextLine
 					System.out.println("Introduce el nombre");
 					nombre = teclado.next();
 					nombreValido = EstudiosMuggles.cadenaLetras(nombre);
 					if (!nombreValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + nombre);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + nombre);
 					}
 				} while (!nombreValido);
 				do {
@@ -233,13 +233,13 @@ public class HogwartsFichero {
 					apellido = teclado.next();
 					apellidoValido = EstudiosMuggles.cadenaLetras(apellido);
 					if (!apellidoValido) {
-						fichero.escribe("El usuario ha intentado introducir el siguiente nombre inválido: " + apellido);
+						fichero.escribe("El usuario ha intentado introducir el siguiente nombre invï¿½lido: " + apellido);
 					}
 				} while (apellidoValido == false);
 
 				a = new Alumno(nombre, apellido, nota);
 				if (ua.buscarAlumno(alumnos, a) == -1) {
-					fichero.escribe("No se ha eliminado ningún alumno");
+					fichero.escribe("No se ha eliminado ningï¿½n alumno");
 				}else{
 					EstudiosMuggles.eliminarAlumno(alumnos, a);
 					fichero.escribe("Se ha eliminado el alumno: "+a.toString());
@@ -250,7 +250,7 @@ public class HogwartsFichero {
 				System.out.println("La nota media es: " + ua.calcularMedia(alumnos));
 				break;
 			case 5:
-				// MostrarDesviación
+				// MostrarDesviaciï¿½n
 				System.out.println("La desviacion tipica es: " + ua.calcularDesviacionTipica(alumnos));
 				break;
 			case 6:
@@ -259,7 +259,7 @@ public class HogwartsFichero {
 				break;
 			case 7:
 				// MostrarNotaRelativaAlumno
-				System.out.println("¿De qué alumno desea ver la nota relativa?");
+				System.out.println("ï¿½De quï¿½ alumno desea ver la nota relativa?");
 				do {
 					System.out.println("Introduzca el nombre.");
 					nombre = teclado.next();
@@ -286,7 +286,7 @@ public class HogwartsFichero {
 				case 1:
 					// crearClaseAleatoria
 					do {
-						System.out.println("¿Cuantos alumnos debe tener la clase?");
+						System.out.println("ï¿½Cuantos alumnos debe tener la clase?");
 						numAlumnos = teclado.nextInt();
 					} while (numAlumnos <= 0);
 
@@ -315,7 +315,7 @@ public class HogwartsFichero {
 						nuevo = new Alumno(nombre, apellido, nota);
 						EstudiosMuggles.aniadeAlumno(alumnos, nuevo);
 						// preguntarsiseguir
-						System.out.println("¿Desea introducir otro alumno?");
+						System.out.println("ï¿½Desea introducir otro alumno?");
 						seguir = teclado.next().charAt(0);
 					} while (seguir == 's');
 					break;

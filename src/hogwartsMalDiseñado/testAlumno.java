@@ -1,10 +1,10 @@
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 public class testAlumno {
 	
 	public static void main (String args[]) {
 		Alumno Harry=new Alumno();
-		Alumno yo=new Alumno("Javierí","Ruiz",0);
+		Alumno yo=new Alumno("Javierï¿½","Ruiz",0);
 		//Paco.pinta(yo.getNombre()+yo.getNota());
 		//yo.setNombre("Pues me cambio de nombre");
 		//yo.setNota(10.0);

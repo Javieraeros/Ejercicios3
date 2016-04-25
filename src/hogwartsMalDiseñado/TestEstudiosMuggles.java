@@ -1,4 +1,4 @@
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 public class TestEstudiosMuggles {
 	

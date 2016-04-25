@@ -4,14 +4,14 @@
  * Devolveremos el archivo Alumnos.dat ya actualizado con los valores de Alumnos_act (de ahora en adelante
  * "actualizador")
  * 
- * En el archivo: Alumnos_act tenemos todos lso alumnos a los que le hemso hecho algún tipo de modificación
+ * En el archivo: Alumnos_act tenemos todos lso alumnos a los que le hemso hecho algï¿½n tipo de modificaciï¿½n
  * las cuales pasaran al archivo Alumnos.dat, manteniendo su ID y cambiando lo que sea necesario
  * 
- * No tenemos ningún tipo de restricción a la hora de actualizar, es decir, en el archivo actualizador podremos
- * tener tantas veces el mismo alumno como queramos, sin embargo, el único con el que actualizaremos será con
- * el último alumno, ya que este es el que tiene todo los cambios válidos.
+ * No tenemos ningï¿½n tipo de restricciï¿½n a la hora de actualizar, es decir, en el archivo actualizador podremos
+ * tener tantas veces el mismo alumno como queramos, sin embargo, el ï¿½nico con el que actualizaremos serï¿½ con
+ * el ï¿½ltimo alumno, ya que este es el que tiene todo los cambios vï¿½lidos.
  * 
- Pseudocódigo generalizado
+ Pseudocï¿½digo generalizado
  Inicio
  	abrirAlumnosLeer           (Alumnos)
  	abrirAlumnos_actLeer       (Actualizado)
@@ -25,7 +25,7 @@
 			Leer registro Actualizado
 			Leer registro Alumnos
 		En otro caso /*puesto que solo contemplamos el caso de actualizaciones, damos por hecho de que 
-						lo que se está realizando es una copia del maestro al maestro actualizado*/
+						lo que se estï¿½ realizando es una copia del maestro al maestro actualizado*/
 /*
 			Mientras (ID_Actualizado >ID_Alumnos)
 				Escribir registro de Alumnos en Actualizado
@@ -40,7 +40,7 @@
 	Fin mientras
 fin
 */
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 import java.io.*;
 
@@ -48,7 +48,7 @@ public class ActualizaFichero {
 	/* 
 	 * Interfaz 
 	 * Cabecera: Alumno leeAlumno(DataInputStream leer) throws IOException
-	 * Proceso:método que lee un alumno de un fichero, y lo devuelve como tal
+	 * Proceso:mï¿½todo que lee un alumno de un fichero, y lo devuelve como tal
 	 * Precondiciones:ninguna
 	 * Entrada:1 fichero
 	 * Salida:1 alumno
@@ -79,7 +79,7 @@ public class ActualizaFichero {
 		return a;
 	}
 	public static void main(String[] args) {
-		// Declaración de objetos y otras variables de interés
+		// Declaraciï¿½n de objetos y otras variables de interï¿½s
 		Alumno viejo,actual;
 		int eofAlumno=1,eofActualizado=1;
 		File Maestro = new File("src\\hogwartsFichero\\Alumnos.dat");

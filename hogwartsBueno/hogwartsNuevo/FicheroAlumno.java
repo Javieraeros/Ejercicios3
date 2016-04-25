@@ -32,7 +32,7 @@ public class FicheroAlumno {
 	/*
 	 * Interfaz
 	 * Cabecera:void muestraAlumnos(String nombreFichero)
-	 * Proceso:Lee el fichero deonde estén almacenados todos los Alumnos y los pinta en pantalla
+	 * Proceso:Lee el fichero deonde estï¿½n almacenados todos los Alumnos y los pinta en pantalla
 	 * Precondiciones:Ninguna
 	 * Entrada:La ruta del fichero
 	 * Salida:nada, pinta en pantalla
@@ -69,8 +69,8 @@ public class FicheroAlumno {
 	/*
 	 * Interfaz
 	 * Cabecera: String leeAlumno(String nombreFichero,int linea)
-	 * Proceso:Lee el alumno indicado por el parámetro del archivo de texto correspondiente
-	 * Precondiciones:número de linea mayor que 0, y menor que fin de fichero
+	 * Proceso:Lee el alumno indicado por el parï¿½metro del archivo de texto correspondiente
+	 * Precondiciones:nï¿½mero de linea mayor que 0, y menor que fin de fichero
 	 * Entrada:La ruta del fichero
 	 * 			un entero para el Alumno
 	 * Salida:Una cadena
@@ -91,10 +91,10 @@ public class FicheroAlumno {
 				bw.close();
 				fichero.close();
 			} catch (IOException e) {
-				System.out.println("Error, la línea debe tiene que existir en el fichero");
+				System.out.println("Error, la lï¿½nea debe tiene que existir en el fichero");
 			}
 		}else{
-			System.out.println("Error, la línea tiene que ser mayor que 0");
+			System.out.println("Error, la lï¿½nea tiene que ser mayor que 0");
 		}
 		return devuelve;
 	}
@@ -102,10 +102,10 @@ public class FicheroAlumno {
 	 * Interfaz
 	 * Cabecera: String[] leeAlumno(String nombreFichero,int lineaInicio,int numeroLeer)
 	 * Proceso:Lee el conjunto de Alumnos igual a numeroLeer, empezando por lineaInicio
-	 * Precondiciones:número de linea mayor que 0, y menor que fin de fichero,numeroLeer mayor que 0
+	 * Precondiciones:nï¿½mero de linea mayor que 0, y menor que fin de fichero,numeroLeer mayor que 0
 	 * Entrada:La ruta del fichero
 	 * 			un entero para el primer Alumno
-	 * 			un entero para el número de lineas
+	 * 			un entero para el nï¿½mero de lineas
 	 * Salida:Un array de cadenas
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Array de cadenas asociada al nombre
@@ -126,11 +126,11 @@ public class FicheroAlumno {
 				bw.close();
 				fichero.close();
 			} catch (IOException e) {
-				System.out.println("Error, la línea debe tiene que existir en el fichero");
-				System.out.println("Asegurate de que existen todas las líneas");
+				System.out.println("Error, la lï¿½nea debe tiene que existir en el fichero");
+				System.out.println("Asegurate de que existen todas las lï¿½neas");
 			}
 		}else{
-			System.out.println("Error, la línea tiene que ser mayor que 0");
+			System.out.println("Error, la lï¿½nea tiene que ser mayor que 0");
 		}
 		return devuelve;
 	}
@@ -138,15 +138,15 @@ public class FicheroAlumno {
 	/* 
 	 * Interfaz 
 	 * Cabecera:void escribeTexto(String nombreFichero,String texto)
-	 * Proceso:escribe una cadena de texto en el fichero indicado, añadiendo un salto de línea.
+	 * Proceso:escribe una cadena de texto en el fichero indicado, aï¿½adiendo un salto de lï¿½nea.
 	 * 			Lo usaremos para crear un log
 	 * Precondiciones:Ningna
 	 * Entrada:Una cadena para el nombre(ruta) del fichero
 	 * 			Una cadena con el Alumno que queramos escribir
 	 * Salida:Nada
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:El archivo quedará escrito y cerrado. Por defecto el archivo no se machaca a si mismo
-	 * 					sino que escribe después de la última escritura
+	 * Postcondiciones:El archivo quedarï¿½ escrito y cerrado. Por defecto el archivo no se machaca a si mismo
+	 * 					sino que escribe despuï¿½s de la ï¿½ltima escritura
 	 */
 	public void escribeTexto(String nombreFichero, String texto) {
 		try {
@@ -165,14 +165,14 @@ public class FicheroAlumno {
 	/* 
 	 * Interfaz 
 	 * Cabecera:void escribeAlumno(String nombreFichero,Alumno a)
-	 * Proceso:escribe un alumno (con el método cadena) en el fichero indicado, añadiendo un salto de línea
+	 * Proceso:escribe un alumno (con el mï¿½todo cadena) en el fichero indicado, aï¿½adiendo un salto de lï¿½nea
 	 * Precondiciones:Ningna
 	 * Entrada:Una cadena para el nombre(ruta) del fichero
 	 * 			Un alumno que escribir
 	 * Salida:Nada
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:El archivo quedará escrito y cerrado. Por defecto el archivo no se machaca a si mismo
-	 * 					sino que escribe después de la última escritura
+	 * Postcondiciones:El archivo quedarï¿½ escrito y cerrado. Por defecto el archivo no se machaca a si mismo
+	 * 					sino que escribe despuï¿½s de la ï¿½ltima escritura
 	 */
 	public void escribeAlumno(String nombreFichero, Alumno a) {
 		try {
@@ -198,7 +198,7 @@ public class FicheroAlumno {
 	 * 			El id del alumno que queremos leer
 	 * Salida:Un alumno
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:Alumno asociado al nombre, devolverá alumno null en caso de error
+	 * Postcondiciones:Alumno asociado al nombre, devolverï¿½ alumno null en caso de error
 	 */
 	public Alumno convierteAlumno(String nombreFichero,int ID){
 		Alumno devuelve=null;
@@ -214,10 +214,10 @@ public class FicheroAlumno {
 			}
 			/*
 			 * Al usar el StringTokenizer, el puntero de AlumnoTok apunta al nombre de la linea actual,
-			 * por lo que para poner el id de ese alumno, usaremos el ID que nos pasan por parámetro
+			 * por lo que para poner el id de ese alumno, usaremos el ID que nos pasan por parï¿½metro
 			 * ya que solo se lo pondremos si el alumno existe gracias a linea!=null
 			 */
-			//Creación de alumno a través de cadena
+			//Creaciï¿½n de alumno a travï¿½s de cadena
 			if(linea!=null){ //nos aseguramos de que no ha llegado al final del fichero
 				int id=ID;
 				String nombre=alumnoTok.nextToken();
@@ -242,7 +242,7 @@ public class FicheroAlumno {
 	 * 			1 alumno 
 	 * Salida:Escribe en el fichero correspondiente
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:El fichero pasado por la ruta qeudará escrito
+	 * Postcondiciones:El fichero pasado por la ruta qeudarï¿½ escrito
 	 */
 	
 	public void escribeAlumnoBinario(String ruta,Alumno a){
@@ -273,7 +273,7 @@ public class FicheroAlumno {
 	 * Postcondiciones:Muestra en pantalla todos los alumnos de dicho fichero
 	 */
 	public void muestraAlumnoBinario(String ruta){
-		Alumno a; //creo aquí el alumno para ocupar menos espacio en memoria
+		Alumno a; //creo aquï¿½ el alumno para ocupar menos espacio en memoria
 		File fichero=new File(ruta);
 		int id,tamanyoNombre,tamanyoApellido;
 		String nombre,apellido;
@@ -314,8 +314,8 @@ public class FicheroAlumno {
 	}
 	
 	/*
-	 * Crea un método que te guarde un array de Alumnos(cuestiones de rapidez) //opcional
-	 * Crea un método que te de información de un alumno(binario) introduciendo el id de este
+	 * Crea un mï¿½todo que te guarde un array de Alumnos(cuestiones de rapidez) //opcional
+	 * Crea un mï¿½todo que te de informaciï¿½n de un alumno(binario) introduciendo el id de este
 	 * Falta crear escribeObjetoBinario y leeObjetoBinario, con toda las funciones que hemos creado
 	 * para archivos de texto y binarios primitivos. SERIALIZABLE
 	 *
@@ -323,7 +323,7 @@ public class FicheroAlumno {
 	 * 
 	 * Ordernar ficheros de texto y binario (primitivos y objetos)
 	 * 
-	 * Cada vez que se cree un alumno (en un método o en hogwarts) usa el método correspondiente
+	 * Cada vez que se cree un alumno (en un mï¿½todo o en hogwarts) usa el mï¿½todo correspondiente
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
 	 * Crea un principal que te muestre el fichero correspondiente con la funcionalidad correspondiente

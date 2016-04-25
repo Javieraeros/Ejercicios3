@@ -1,4 +1,4 @@
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 import java.util.Vector;
 import java.util.Random;
 public class ConductorUtilidadesAlumnos

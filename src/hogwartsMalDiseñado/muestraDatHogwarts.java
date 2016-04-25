@@ -1,8 +1,8 @@
 /*En este programa mostraremos los datos almacenados en el fichero Alumnos.dat
- * Necesitaremos el fichero Alumnos.dat (suponemos que el nombre no cambiará
- * El programa escribirá en pantalla los datos de dicho fichero
+ * Necesitaremos el fichero Alumnos.dat (suponemos que el nombre no cambiarï¿½
+ * El programa escribirï¿½ en pantalla los datos de dicho fichero
  * 
- * Pseudocódigo generalizado
+ * Pseudocï¿½digo generalizado
  * 	Inicio 
  * 		abreFicheroAlumnosLeer
  * 		repertir
@@ -14,7 +14,7 @@
  * 		cierraFichero
  * 	Fin
  */
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -48,7 +48,7 @@ public class muestraDatHogwarts {
 				System.out.println();
 				//muestraNota
 				System.out.println("Nota: "+fichero.readDouble());
-			} while (fichero.available() > 0); // Única forma que se me ha
+			} while (fichero.available() > 0); // ï¿½nica forma que se me ha
 												// ocurrido de leer :/
 			//cierraFichero
 			fichero.close();
@@ -59,7 +59,7 @@ public class muestraDatHogwarts {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Lo siguiente es para crear un archivo de actualización de alumnos, y comprobar si lo actualiza
+		//Lo siguiente es para crear un archivo de actualizaciï¿½n de alumnos, y comprobar si lo actualiza
 		/*Alumno javi=new Alumno("Javi","Ruiz",10);
 		javi.setNombre("pene25");*/
 	}

@@ -26,11 +26,11 @@
 * Modificadores:
 * void setFichero(FileWriter fichero);
 * 
-* Métodos añadidos:
+* Mï¿½todos aï¿½adidos:
 * void escribe(String info);
 * void cierraFichero();
 * 
-* Métodos Sobreescritos:
+* Mï¿½todos Sobreescritos:
 * boolean equals(Object o);
 * XXXXX clone();
 * String toString();
@@ -38,7 +38,7 @@
 * int compareTo(XXXX comparada);
 */
 
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -80,7 +80,7 @@ public class EscribeFichero {
 		this.fichero=nombre;
 		BW=new BufferedWriter(fichero);
 	}
-	//Métodos añadidos
+	//Mï¿½todos aï¿½adidos
 	public void escribe(String info){
 		try {
 			BW.write(info+"\r\n");

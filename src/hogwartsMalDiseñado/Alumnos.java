@@ -29,7 +29,7 @@
  * 	entero getNumAlumnos()
  * 	nada setAlumnos(Alumno[] alumnos)
  */
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 import java.util.Vector;
 public class Alumnos implements Cloneable,Comparable<Alumnos>
 {

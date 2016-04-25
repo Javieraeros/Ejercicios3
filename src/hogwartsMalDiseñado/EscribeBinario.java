@@ -25,12 +25,12 @@
  * Modificadores:
  * void setFichero(FileOutputStream fichero);
  * 
- * Añadidos:
+ * Aï¿½adidos:
  * void escribe();
  * coid cierra();
  */
  
-package hogwartsMalDiseñado;
+package hogwartsMalDiseÃ±ado;
 
 import java.io.*;
 
@@ -68,7 +68,7 @@ public class EscribeBinario {
 		out=new DataOutputStream(fichero);
 	}
 
-	//Añadidos
+	//Aï¿½adidos
 	public void escribe(Alumno a){
 		try {
 			out.writeInt(a.getID());
