@@ -1,0 +1,30 @@
+Alumno ID rápida:
+
+fecha incio escritura en fichero texto: Thu Apr 21 22:32:39 CEST 2016
+fecha fin escritura en fichero texto: Thu Apr 21 22:34:33 CEST 2016
+fecha incio escritura en fichero binario: Thu Apr 21 22:34:33 CEST 2016
+fecha fin escritura en fichero binario: Thu Apr 21 22:35:59 CEST 2016
+
+Alumno ID lenta:
+
+fecha incio escritura en fichero texto: Thu Apr 21 22:36:54 CEST 2016
+fecha fin escritura en fichero texto: Thu Apr 21 22:38:58 CEST 2016
+fecha incio escritura en fichero binario: Thu Apr 21 22:38:58 CEST 2016
+fecha fin escritura en fichero binario: Thu Apr 21 22:40:16 CEST 2016
+
+Ordenador ciclo:
+ID lenta:
+fecha incio escritura en fichero texto: Fri Apr 22 10:27:49 CEST 2016
+fecha fin escritura en fichero texto: Fri Apr 22 10:28:14 CEST 2016
+25 segundos
+fecha incio escritura en fichero binario: Fri Apr 22 10:28:14 CEST 2016
+fecha fin escritura en fichero binario: Fri Apr 22 10:28:43 CEST 2016
+29 segundos
+
+ID Rapida:
+fecha incio escritura en fichero texto: Fri Apr 22 10:29:40 CEST 2016
+fecha fin escritura en fichero texto: Fri Apr 22 10:30:03 CEST 2016
+23 segundos
+fecha incio escritura en fichero binario: Fri Apr 22 10:30:03 CEST 2016
+fecha fin escritura en fichero binario: Fri Apr 22 10:30:29 CEST 2016
+26 segundos
