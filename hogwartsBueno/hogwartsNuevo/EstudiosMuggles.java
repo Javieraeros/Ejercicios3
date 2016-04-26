@@ -13,7 +13,7 @@ public class EstudiosMuggles {
 	 * Entrada:1 entero
 	 * Salida:Nada
 	 * Entrada/Salida:Una objeto tipo Alumnos
-	 * Postcondiciones:Se devuelve Clase por referencia.
+	 * Postcondiciones:Se devuelve Allumnos por referencia.
 	 */
 	
 	//Resguardo

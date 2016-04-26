@@ -54,7 +54,9 @@ package hogwartsNuevo;
 import java.io.*;
 import java.lang.annotation.*;
 
-public class Alumno implements Cloneable, Comparable<Alumno> {
+public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	// Atributos
 	private String nombre;
 	private String apellidos;

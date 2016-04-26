@@ -9,14 +9,9 @@ import hogwartsNuevo.FicheroAlumno;
 
 public class FicheroAlumnoTest {
 	FicheroAlumno utilidad=new FicheroAlumno();
+	
 	@Test
-	public void leeAlumnoTest() {
-		String esperada="1 Gellert Dumbledore 6.39";
-		String actual=utilidad.leeAlumno("hogwartsBueno\\hogwartsNuevo\\AlumnosCadenas.txt");
-		assertEquals(esperada, actual);
-	}
-	@Test
-	public void leeAlumnoTestLinea(){
+	public void leeAlumnoTestID(){
 		String esperada="7 Vincent Crabbe 8.68";
 		String actual=utilidad.leeAlumno("hogwartsBueno\\hogwartsNuevo\\AlumnosCadenas.txt",7);
 		assertEquals(esperada, actual);
@@ -41,7 +36,7 @@ public class FicheroAlumnoTest {
 	public void escribeTextoTest(){
 		utilidad.escribeTexto("hogwartsBueno\\testHogwartsNuevo\\test.txt","Hola Mundo");
 		String esperada="Hola Mundo";
-		String actual=utilidad.leeAlumno("hogwartsBueno\\testHogwartsNuevo\\test.txt");
+		String actual=utilidad.leeAlumno("hogwartsBueno\\testHogwartsNuevo\\test.txt",1);
 		assertEquals(esperada, actual);
 	}
 	
@@ -58,4 +53,22 @@ public class FicheroAlumnoTest {
 		Alumno b=utilidad.convierteAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumnoConvierte.txt", 1);
 		assertEquals(a,b);
 	}
+	@Test
+	public void escribeAlumnoBinario(){
+		Alumno a=new Alumno("Pepe","Botella",6.89);
+		utilidad.escribeAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat", a);
+	}
+	@Test
+	public void devuelveAlumnoBinario(){
+		Alumno a=new Alumno(1,"Pepe","Botella",6.89);
+		Alumno copia =utilidad.devuelveAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat",1);
+		assertEquals(a,copia);
+	}
+	@Test
+	public void buscaObjetoAlumnoTest(){
+		Alumno a=new Alumno("Mariano","Sánchez",8.20);
+		Alumno copia =utilidad.buscaObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",9);
+		assertEquals(a,copia);
+	}
+	
 }

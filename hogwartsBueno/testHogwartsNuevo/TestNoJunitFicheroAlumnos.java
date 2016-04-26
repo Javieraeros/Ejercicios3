@@ -3,6 +3,10 @@ package testHogwartsNuevo;
 import hogwartsNuevo.Alumno;
 import hogwartsNuevo.FicheroAlumno;
 
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 
 
@@ -29,7 +33,18 @@ public class TestNoJunitFicheroAlumnos {
 		fecha=new Date();
 		System.out.println("fecha fin escritura en fichero binario: "+fecha);
 		//util.muestraAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat");*/
-		System.out.println(util.convierteAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumno.txt", 275216).cadena());
+		//System.out.println(util.convierteAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumno.txt", 275216).cadena());
+		//util.muestraAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat");
+		a=new Alumno("Mariano","Sánchez",8.20);
+		/*try {
+			FileOutputStream out=new FileOutputStream("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",true);
+			ObjectOutputStream fichero=new ObjectOutputStream(out);
+			fichero.writeObject(a);
+		} catch (IOException e) {
+			System.out.println(e);
+		}*/
+		util.escribeObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat", a);
+		util.muestraObjetosAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat");
 	}
 
 }

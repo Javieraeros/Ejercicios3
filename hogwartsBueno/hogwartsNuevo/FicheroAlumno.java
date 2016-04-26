@@ -4,31 +4,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class FicheroAlumno {
-	/*
-	 * Interfaz
-	 * Cabecera: String leeAlumno(String nombreFichero)
-	 * Proceso:Lee el primer Alumno del archivo de texto correspondiente
-	 * Precondiciones:Ninguna
-	 * Entrada:La ruta del fichero
-	 * Salida:Una cadena
-	 * Entrada/Salida:Nada
-	 * Postcondiciones:Cadena asociada al nombre
-	 */
-	public String leeAlumno(String nombreFichero) {
-		String devuelve = null;
-		try {
-			File archivo = new File(nombreFichero);
-			FileReader fichero = new FileReader(archivo);
-			BufferedReader bw = new BufferedReader(fichero);
-			devuelve = bw.readLine();
-			bw.close();
-			fichero.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-		return devuelve;
-	}
-
+	
 	/*
 	 * Interfaz
 	 * Cabecera:void muestraAlumnos(String nombreFichero)
@@ -39,11 +15,15 @@ public class FicheroAlumno {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Cadena asociada al nombre
 	 */
+	
 	public void muestraAlumnos(String nombreFichero) {
+		File archivo = new File(nombreFichero);
+		FileReader fichero=null;
+		BufferedReader bw=null;
 		try {
-			File archivo = new File(nombreFichero);
-			FileReader fichero = new FileReader(archivo);
-			BufferedReader bw = new BufferedReader(fichero);
+			
+			fichero = new FileReader(archivo);
+			bw = new BufferedReader(fichero);
 			
 			//Lectura anticipada
 			String linea=bw.readLine();
@@ -57,14 +37,25 @@ public class FicheroAlumno {
 				}
 				linea=bw.readLine();
 			}
-			bw.close();
-			fichero.close();
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			if(bw!=null){
+				try {
+					bw.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
-	
-	
 	
 	/*
 	 * Interfaz
@@ -77,27 +68,44 @@ public class FicheroAlumno {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Cadena asociada al nombre
 	 */
+	
 	public String leeAlumno(String nombreFichero, int linea) {
 		String devuelve = null;
 		if (linea > 0) {
+			File archivo = new File(nombreFichero);
+			FileReader fichero=null;
+			BufferedReader bw=null;
 			try {
-				File archivo = new File(nombreFichero);
-				FileReader fichero = new FileReader(archivo);
-				BufferedReader bw = new BufferedReader(fichero);
+				fichero = new FileReader(archivo);
+				bw = new BufferedReader(fichero);
 				for(int i=1;i<linea;i++){   //Dejo el puntero apuntando a la linea que quiero leer
 					bw.readLine();
 				}
 				devuelve = bw.readLine();
-				bw.close();
-				fichero.close();
 			} catch (IOException e) {
 				System.out.println("Error, la lï¿½nea debe tiene que existir en el fichero");
+			}finally{
+				if(bw!=null){
+					try {
+						bw.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(fichero!=null){
+					try {
+						fichero.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
 			}
 		}else{
 			System.out.println("Error, la lï¿½nea tiene que ser mayor que 0");
 		}
 		return devuelve;
 	}
+	
 	/*
 	 * Interfaz
 	 * Cabecera: String[] leeAlumno(String nombreFichero,int lineaInicio,int numeroLeer)
@@ -110,6 +118,7 @@ public class FicheroAlumno {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Array de cadenas asociada al nombre
 	 */
+	
 	public String[] leeAlumno(String nombreFichero, int lineaInicio,int numeroLeer) {
 		String[] devuelve = new String[numeroLeer];
 		if (lineaInicio > 0 && numeroLeer>0) {
@@ -148,18 +157,33 @@ public class FicheroAlumno {
 	 * Postcondiciones:El archivo quedarï¿½ escrito y cerrado. Por defecto el archivo no se machaca a si mismo
 	 * 					sino que escribe despuï¿½s de la ï¿½ltima escritura
 	 */
+	
 	public void escribeTexto(String nombreFichero, String texto) {
+		File archivo = new File(nombreFichero);
+		FileWriter fichero=null;
+		BufferedWriter bw=null;
 		try {
-			File archivo = new File(nombreFichero);
-			FileWriter fichero = new FileWriter(archivo, true);
-			BufferedWriter bw = new BufferedWriter(fichero);
+			fichero = new FileWriter(archivo, true);
+			bw = new BufferedWriter(fichero);
 			bw.write(texto + "\r\n");
-			bw.close();
-			fichero.close();
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			if(bw!=null){
+				try {
+					bw.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
-
 	}
 	
 	/* 
@@ -174,20 +198,35 @@ public class FicheroAlumno {
 	 * Postcondiciones:El archivo quedarï¿½ escrito y cerrado. Por defecto el archivo no se machaca a si mismo
 	 * 					sino que escribe despuï¿½s de la ï¿½ltima escritura
 	 */
+	
 	public void escribeAlumno(String nombreFichero, Alumno a) {
+		File archivo = new File(nombreFichero);
+		FileWriter fichero=null;
+		BufferedWriter bw=null;
 		try {
-			File archivo = new File(nombreFichero);
-			FileWriter fichero = new FileWriter(archivo, true);
-			BufferedWriter bw = new BufferedWriter(fichero);
+			fichero = new FileWriter(archivo, true);
+			bw = new BufferedWriter(fichero);
 			bw.write(a.cadena() + "\r\n");
-			bw.close();
-			fichero.close();
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			if(bw!=null){
+				try {
+					bw.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 
 	}
-	
 	
 	/* 
 	 * Interfaz 
@@ -200,16 +239,19 @@ public class FicheroAlumno {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Alumno asociado al nombre, devolverï¿½ alumno null en caso de error
 	 */
+	
 	public Alumno convierteAlumno(String nombreFichero,int ID){
 		Alumno devuelve=null;
+		File leer=new File(nombreFichero);
+		FileReader fichero=null;
+		BufferedReader br=null;
 		try{
-			File leer=new File(nombreFichero);
-			FileReader fichero=new FileReader(leer);
-			BufferedReader leeAlumno=new BufferedReader(fichero);
-			String linea=leeAlumno.readLine();
+			fichero=new FileReader(leer);
+			br =new BufferedReader(fichero);
+			String linea=br.readLine();
 			StringTokenizer alumnoTok=new StringTokenizer(linea);
 			while(Integer.parseInt(alumnoTok.nextToken())!=ID && linea!=null){
-				linea=leeAlumno.readLine();
+				linea=br.readLine();
 				alumnoTok=new StringTokenizer(linea);
 			}
 			/*
@@ -225,10 +267,24 @@ public class FicheroAlumno {
 				double nota=Double.parseDouble(alumnoTok.nextToken());
 				devuelve=new Alumno(id,nombre,apellido,nota);
 			}
-			leeAlumno.close();
-			fichero.close();
+			
 		}catch(IOException e){
 			System.out.println(e);
+		}finally{
+			if(br!=null){
+				try {
+					br.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return devuelve;
 	}
@@ -246,22 +302,38 @@ public class FicheroAlumno {
 	 */
 	
 	public void escribeAlumnoBinario(String ruta,Alumno a){
+		File archivo=new File(ruta);
+		FileOutputStream fichero=null;
+		DataOutputStream dos=null;
 		try{
-			File fichero=new File(ruta);
-			FileOutputStream ficheroBin=new FileOutputStream(fichero,true);
-			DataOutputStream escribeBin=new DataOutputStream(ficheroBin);
-			escribeBin.writeInt(a.getID());
-			escribeBin.writeInt(a.getNombre().length());
-			escribeBin.writeChars(a.getNombre());
-			escribeBin.writeInt(a.getApellidos().length());
-			escribeBin.writeChars(a.getApellidos());
-			escribeBin.writeDouble(a.getNota());
-			escribeBin.close();
-			ficheroBin.close();
+			fichero=new FileOutputStream(archivo,true);
+			dos=new DataOutputStream(fichero);
+			dos.writeInt(a.getID());
+			dos.writeInt(a.getNombre().length());
+			dos.writeChars(a.getNombre());
+			dos.writeInt(a.getApellidos().length());
+			dos.writeChars(a.getApellidos());
+			dos.writeDouble(a.getNota());
 		}catch(IOException e){
 			System.out.println(e);
+		}finally{
+			if(dos!=null){
+				try {
+					dos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
+	
 	/* 
 	 * Interfaz 
 	 * Cabecera: public void muestraAlumnoBinario(String ruta)
@@ -272,15 +344,18 @@ public class FicheroAlumno {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Muestra en pantalla todos los alumnos de dicho fichero
 	 */
+	
 	public void muestraAlumnoBinario(String ruta){
-		Alumno a; //creo aquï¿½ el alumno para ocupar menos espacio en memoria
+		Alumno a; //creo aquí el alumno para ocupar menos espacio en memoria
 		File fichero=new File(ruta);
+		FileInputStream ficheroLeer=null;
+		DataInputStream lee=null;
 		int id,tamanyoNombre,tamanyoApellido;
 		String nombre,apellido;
 		double nota;
 		try {
-			FileInputStream ficheroLeer = new FileInputStream(fichero);
-			DataInputStream lee=new DataInputStream(ficheroLeer);
+			ficheroLeer = new FileInputStream(fichero);
+			lee=new DataInputStream(ficheroLeer);
 			do{
 				//Inicio las variables en cada incio del bucle para evitar valores indebidos
 				id=0;tamanyoNombre=0;tamanyoApellido=0;
@@ -310,6 +385,21 @@ public class FicheroAlumno {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			if(lee!=null){
+				try {
+					lee.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(ficheroLeer!=null){
+				try {
+					ficheroLeer.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 	
@@ -370,11 +460,130 @@ public class FicheroAlumno {
 		
 		return devolver;
 	}
+		
+	 /* 
+	 * Interfaz 
+	 * Cabecera:public void escribeObjetoAlumno(String ruta,Alumno a)
+	 * Proceso:Escribe un objeto alumno en un fichero
+	 * Precondiciones:Alumno serializable
+	 * Entrada:1 cadena apra la tura del fichero
+	 * Salida:Guarda en el fichero el objeto Alumno
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:El fichero con el alumno guardado si no existe ningún error
+	 */
 	
+	public void escribeObjetoAlumno(String ruta,Alumno a){
+		File fichero=new File(ruta);
+		FileOutputStream ficheroBin=null;
+		MiOOS escribeBin=null;
+		try{
+			ficheroBin=new FileOutputStream(fichero,true);
+			escribeBin=new MiOOS(ficheroBin);
+			escribeBin.writeObject(a);
+			escribeBin.close();
+			ficheroBin.close();
+		}catch(IOException e){
+			System.out.println(e);
+		}finally{
+			if(escribeBin!=null){
+				try {
+					escribeBin.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(ficheroBin!=null){
+				try {
+					ficheroBin.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
+	
+	 /* 
+	 * Interfaz 
+	 * Cabecera:alumno muestraObjetosAlumno(String ruta)
+	 * Proceso:Muestra por pantalla todos los alumnos de la ruta especificada
+	 * Precondiciones:Ninguna
+	 * Entrada:1 cadena con la ruta del fichero
+	 * Salida:Pinta en pantalla
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Posible error
+	 */
+	
+	public void muestraObjetosAlumno(String ruta){
+		File fichero=new File(ruta);
+		FileInputStream leer=null;
+		ObjectInputStream in=null;
+		try{
+			leer=new FileInputStream(fichero);
+			in=new ObjectInputStream(leer);
+			Alumno a;
+			a=(Alumno) in.readObject();
+			while (a!=null){ //creo que no vale para nada
+				System.out.println(a.cadena());
+				a=(Alumno) in.readObject();
+			}
+		}catch(IOException e){
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}if(in!=null){
+			try {
+				in.close();
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+		}
+		if(leer!=null){
+			try {
+				leer.close();
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+		}
+		
+	}
+
+	 /* 
+	 * Interfaz 
+	 * Cabecera: Alumno buscaObjetoAlumno(String ruta, int ID)
+	 * Proceso:Devuelve un alumno con el id indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 cadena para la ruta del fichero
+	 * 			1 entero para el id
+	 * Salida:1 alumno
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Alumno asociado al nombre, null si no se enceuntra en el fichero
+	 */
+	
+	public Alumno buscaObjetoAlumno(String ruta, int id){
+		Alumno a=null;
+		File fichero=new File(ruta);
+		FileInputStream leer=null;
+		ObjectInputStream in=null;
+		try{
+			leer=new FileInputStream(fichero);
+			in=new ObjectInputStream(leer);
+			a=(Alumno) in.readObject();
+			while(a.getID()!=id && a!=null){
+				a=(Alumno) in.readObject();
+			}
+		}catch(EOFException e){
+			System.out.println(e);
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		return a;
+	}
 	
 	/*
-	 * Crea un mï¿½todo que te guarde un array de Alumnos(cuestiones de rapidez) //opcional
-	 * Crea un mï¿½todo que te de informaciï¿½n de un alumno(binario) introduciendo el id de este
 	 * Falta crear escribeObjetoBinario y leeObjetoBinario, con toda las funciones que hemos creado
 	 * para archivos de texto y binarios primitivos. SERIALIZABLE
 	 *
@@ -382,7 +591,7 @@ public class FicheroAlumno {
 	 * 
 	 * Ordernar ficheros de texto y binario (primitivos y objetos)
 	 * 
-	 * Cada vez que se cree un alumno (en un mï¿½todo o en hogwarts) usa el mï¿½todo correspondiente
+	 * Cada vez que se cree un alumno guárdalo, pero solo en programa principal, nada de añadir código a métodos
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
 	 * Crea un principal que te muestre el fichero correspondiente con la funcionalidad correspondiente
