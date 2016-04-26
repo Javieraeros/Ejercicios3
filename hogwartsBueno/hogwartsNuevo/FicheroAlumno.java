@@ -584,8 +584,6 @@ public class FicheroAlumno {
 	}
 	
 	/*
-	 * Falta crear escribeObjetoBinario y leeObjetoBinario, con toda las funciones que hemos creado
-	 * para archivos de texto y binarios primitivos. SERIALIZABLE
 	 *
 	 * Crear AccessRandom, para poder crear ficheros directos.
 	 * 
