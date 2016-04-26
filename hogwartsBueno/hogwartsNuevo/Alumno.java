@@ -95,11 +95,8 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 			this.apellidos = apellidos;
 			this.nota = nota;
 			this.ID = ID;
-			System.out.println("Se desaconseja el uso de este constructor para crear alumnos");
-			System.out.println("si queremos mantener id únicos");
 		}
 	}
-	
 	
 	// Consultores
 	public int getID() {

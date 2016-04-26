@@ -16,7 +16,6 @@ public class FicheroAlumnoTest {
 		String actual=utilidad.leeAlumno("hogwartsBueno\\hogwartsNuevo\\AlumnosCadenas.txt",7);
 		assertEquals(esperada, actual);
 	}
-
 	@Test
 	public void leeAlumnoTestVariasLineas(){
 		String[] esperada={"2 Hermione Black 7.83",
@@ -61,7 +60,7 @@ public class FicheroAlumnoTest {
 	@Test
 	public void devuelveAlumnoBinario(){
 		Alumno a=new Alumno(1,"Pepe","Botella",6.89);
-		Alumno copia =utilidad.devuelveAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat",1);
+		Alumno copia =utilidad.devuelveAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat",2);
 		assertEquals(a,copia);
 	}
 	@Test
@@ -70,5 +69,4 @@ public class FicheroAlumnoTest {
 		Alumno copia =utilidad.buscaObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",9);
 		assertEquals(a,copia);
 	}
-	
 }
