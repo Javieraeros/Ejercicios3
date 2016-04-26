@@ -583,6 +583,55 @@ public class FicheroAlumno {
 		return a;
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:void escribeAlumnoDirecto(String ruta,Alumno a)
+	 * Proceso:Escribe un alumno en un fichero de acceso directo
+	 * Precondiciones:Tanto el nombre como el apellido ocuparán 
+	 * 					(máximo) 20 caracteres
+	 * Entrada:1 cadena para el fichero
+	 * 			1 Alumno
+	 * Salida:El fichero escrito
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:El fichero quedará escrito con el alumno indicado
+	 */
+	
+	public void escribeAlumnoDirecto(String ruta, Alumno a){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		int tamanyoNombre=a.getNombre().length();
+		int tamanyoApellido=a.getApellidos().length();
+		String nombre=a.getNombre();
+		String apellido=a.getApellidos();
+		//Para que ambas cadenas me ocupen lo mismo:
+		for(int i=0;i<20-tamanyoNombre;i++){
+			nombre=nombre+" ";
+		}
+		
+		for(int i=0;i<20-tamanyoApellido;i++){
+			apellido=apellido+" ";
+		}
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.write(a.getID());
+			out.writeChars(nombre);
+			out.writeChars(apellido);
+			out.writeDouble(a.getNota());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 	
 	/*
 	 *
