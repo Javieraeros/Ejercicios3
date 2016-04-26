@@ -583,6 +583,7 @@ public class FicheroAlumno {
 		return a;
 	}
 	
+	
 	/*
 	 *
 	 * Crear AccessRandom, para poder crear ficheros directos.
