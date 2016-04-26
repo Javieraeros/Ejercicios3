@@ -55,7 +55,7 @@ public class ActualizaFichero {
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Alumno asociado al nombre
 	 */
-	public static Alumno leeAlumno(DataInputStream leer){
+	/*public static Alumno leeAlumno(DataInputStream leer){
 		int id,letrasNombre,letrasApellido,i;
 		double nota;
 		Alumno a=null;
@@ -171,5 +171,5 @@ public class ActualizaFichero {
 			Movimiento.delete();
 			System.out.println(renombrado);
 		}
-	}
+	}*/
 }
