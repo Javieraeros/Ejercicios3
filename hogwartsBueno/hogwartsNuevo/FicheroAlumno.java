@@ -346,7 +346,7 @@ public class FicheroAlumno {
 	 */
 	
 	public void muestraAlumnoBinario(String ruta){
-		Alumno a; //creo aquí el alumno para ocupar menos espacio en memoria
+		Alumno a; //creo aquï¿½ el alumno para ocupar menos espacio en memoria
 		File fichero=new File(ruta);
 		FileInputStream ficheroLeer=null;
 		DataInputStream lee=null;
@@ -469,7 +469,7 @@ public class FicheroAlumno {
 	 * Entrada:1 cadena apra la tura del fichero
 	 * Salida:Guarda en el fichero el objeto Alumno
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:El fichero con el alumno guardado si no existe ningún error
+	 * Postcondiciones:El fichero con el alumno guardado si no existe ningï¿½n error
 	 */
 	
 	public void escribeObjetoAlumno(String ruta,Alumno a){
@@ -587,13 +587,13 @@ public class FicheroAlumno {
 	 * Interfaz 
 	 * Cabecera:void escribeAlumnoDirecto(String ruta,Alumno a)
 	 * Proceso:Escribe un alumno en un fichero de acceso directo
-	 * Precondiciones:Tanto el nombre como el apellido ocuparán 
-	 * 					(máximo) 20 caracteres
+	 * Precondiciones:Tanto el nombre como el apellido ocuparï¿½n 
+	 * 					(mï¿½ximo) 20 caracteres
 	 * Entrada:1 cadena para el fichero
 	 * 			1 Alumno
 	 * Salida:El fichero escrito
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:El fichero quedará escrito con el alumno indicado
+	 * Postcondiciones:El fichero quedarï¿½ escrito con el alumno indicado
 	 */
 	
 	public void escribeAlumnoDirecto(String ruta, Alumno a){
@@ -650,7 +650,7 @@ public class FicheroAlumno {
 		File fichero=new File(ruta);
 		RandomAccessFile leer=null;
 		Alumno a;
-		int contador=0,id;   //Nos servirá para saber en que Alumno estamos
+		int contador=0,id;   //Nos servirï¿½ para saber en que Alumno estamos
 		String nombre,apellido;
 		double nota;
 		char letra;
@@ -746,8 +746,8 @@ public class FicheroAlumno {
 			//leerElemento
 			if(existe){
 				leer.seek(id*(92));   //4+2*20+2*20+8
-				id=leer.readInt();  //nos da igual leer la ID o no, pero así nos aseguremos de que hemos seleccionado
-									//el que queríamos
+				id=leer.readInt();  //nos da igual leer la ID o no, pero asï¿½ nos aseguremos de que hemos seleccionado
+									//el que querï¿½amos
 				
 				//inicializamos nombre para evitar errores
 				nombre="";
@@ -790,14 +790,14 @@ public class FicheroAlumno {
 	 /* 
 	 * Interfaz 
 	 * Cabecera: private void parteFicheroSecuencias(String original,String part1,string part2,int secuencia)
-	 * Proceso:método que divide un archivo de acceso aleatorio en 2,siguiendo una secuencia,es decir,
-	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y después en otro.
+	 * Proceso:mï¿½todo que divide un archivo de acceso aleatorio en 2,siguiendo una secuencia,es decir,
+	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y despuï¿½s en otro.
 	 * Precondiciones:ARCHIVO DE ACCESO ALEATORIO
 	 * Entrada:1 cadena para el archivo original
-	 * 		   2 cadenas para lso archivos de la partición
-	 * 		   1 entero para el número de registros por secuencia
+	 * 		   2 cadenas para lso archivos de la particiï¿½n
+	 * 		   1 entero para el nï¿½mero de registros por secuencia
 	 * Salida:los 2 archivos particionados
-	 * Postcondiciones:El archivo quedará partido en dos, sin ser destruido o modificado
+	 * Postcondiciones:El archivo quedarï¿½ partido en dos, sin ser destruido o modificado
 	 */
 	
 	private void parteFicheroSecuencias(String original,String part1,String part2,int secuencia){
@@ -816,10 +816,10 @@ public class FicheroAlumno {
 			while(in.getFilePointer()<tamanyoFichero){
 				for(int i=0;i<secuencia;i++){
 					out1.writeInt(in.readInt());
-					//mirar si puedo hacerlo usando el método buscarAlumno!!!
+					//mirar si puedo hacerlo usando el mï¿½todo buscarAlumno!!!
 				}
 			}
-			//Puesto que es acceso directo, cambiaré un poco el método
+			//Puesto que es acceso directo, cambiarï¿½ un poco el mï¿½todo
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch (IOException e) {
@@ -829,12 +829,12 @@ public class FicheroAlumno {
 		}
 	}
 	
-	/*Preguntar a Asun si es mejor sobrecargar los métodos
+	/*Preguntar a Asun si es mejor sobrecargar los mÃ©todos
 	 *
 	 * 
 	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 
-	 * Cada vez que se cree un alumno guárdalo, pero solo en programa principal, nada de añadir código a métodos
+	 * Cada vez que se cree un alumno guï¿½rdalo, pero solo en programa principal, nada de aï¿½adir cï¿½digo a mï¿½todos
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
 	 * Crea un principal que te muestre el fichero correspondiente con la funcionalidad correspondiente
