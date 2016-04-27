@@ -510,7 +510,7 @@ public class FicheroAlumno {
 	 * Entrada:1 cadena con la ruta del fichero
 	 * Salida:Pinta en pantalla
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:Posible error
+	 * Postcondiciones:Pinta en pantalla
 	 */
 	
 	public void muestraObjetosAlumno(String ruta){
@@ -614,7 +614,9 @@ public class FicheroAlumno {
 		
 		try{
 			out=new RandomAccessFile(fichero, "rw");
-			out.write(a.getID());
+			//Para que no me sobreescriba:
+			out.seek(out.length());
+			out.writeInt(a.getID());
 			out.writeChars(nombre);
 			out.writeChars(apellido);
 			out.writeDouble(a.getNota());
@@ -633,11 +635,204 @@ public class FicheroAlumno {
 		}
 	}
 	
-	/*
+	 /* 
+	 * Interfaz 
+	 * Cabecera:void muestraAlumnoDirecto(String ruta)
+	 * Proceso:Muestra por pantalla todos los alumnos de la ruta especificada
+	 * Precondiciones:Ninguna
+	 * Entrada:1 cadena con la ruta del fichero
+	 * Salida:Pinta en pantalla
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Pinta en pantalla
+	 */
+	
+	public void muestraAlumnoDirecto(String ruta){
+		File fichero=new File(ruta);
+		RandomAccessFile leer=null;
+		Alumno a;
+		int contador=0,id;   //Nos servirá para saber en que Alumno estamos
+		String nombre,apellido;
+		double nota;
+		char letra;
+		try{
+			leer=new RandomAccessFile(fichero,"r");
+			while (leer.read()!=-1){
+				leer.seek(contador*(92));   //4+2*20+2*20+8
+				id=leer.readInt();
+				
+				//inicializamos nombre para evitar errores
+				nombre="";
+				for(int i=0;i<20;i++){  //no puedo poner aqui la condicion de letra!=32 porque tiene que leer
+										//los 20 caracteres!
+					letra=leer.readChar();
+					if (letra!=32){     //Para que quede bonito
+						nombre=nombre+letra;
+					}
+				}
+				
+				//igual para apellido
+				apellido="";
+				for(int i=0;i<20;i++){
+					letra=leer.readChar();
+					if(letra!=32){      //Para que quede bonito
+						apellido+=letra;
+					}
+				}
+				
+				nota=leer.readDouble();
+				a=new Alumno(id,nombre,apellido,nota);
+				System.out.println(a.cadena());
+				contador++;
+			}
+		}catch(EOFException e){
+			System.out.println(e);
+		}catch(IOException e){
+			System.out.println(e);
+		}finally{
+			if(leer!=null){
+				try {
+					leer.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera: Alumno buscaAlumnoDirecto(String ruta, int ID)
+	 * Proceso:Devuelve un alumno con el id indicado
+	 * Precondiciones:EL FICHERO DEBE ESTAR ORDEANDO
+	 * Entrada:1 cadena para la ruta del fichero
+	 * 			1 entero para el id
+	 * Salida:1 alumno
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Alumno asociado al nombre, null si no se encuentra en el fichero
+	 */
+	
+	public Alumno buscaAlumnoDirecto(String ruta,int idAlumno){
+		File fichero=new File(ruta);
+		RandomAccessFile leer=null;
+		Alumno a=null;
+		int id=0;
+		String nombre,apellido;
+		double nota;
+		char letra;
+		try{
+			//BuscarElemento
+			boolean existe=false;
+			long mitad,inicio,fin;
+			leer=new RandomAccessFile(fichero,"r");
+			inicio=0;
+			fin=leer.length()/92;
+			while(inicio<=fin && !existe){
+				mitad=(inicio+fin)/2;
+				leer.seek((mitad)*92);
+				id=leer.readInt();
+				if(id==idAlumno){
+					existe=true;
+					id=(int) mitad;
+				}else{
+					if(id>idAlumno){
+						fin=mitad-1;
+					}else{
+						inicio=mitad+1;
+					}
+				}
+			}
+			
+			
+			//leerElemento
+			if(existe){
+				leer.seek(id*(92));   //4+2*20+2*20+8
+				id=leer.readInt();  //nos da igual leer la ID o no, pero así nos aseguremos de que hemos seleccionado
+									//el que queríamos
+				
+				//inicializamos nombre para evitar errores
+				nombre="";
+				for(int i=0;i<20;i++){  //no puedo poner aqui la condicion de letra!=32 porque tiene que leer
+										//los 20 caracteres!
+					letra=leer.readChar();
+					if (letra!=32){     //Para que quede bonito
+						nombre=nombre+letra;
+					}
+				}
+				
+				//igual para apellido
+				apellido="";
+				for(int i=0;i<20;i++){
+					letra=leer.readChar();
+					if(letra!=32){      //Para que quede bonito
+						apellido+=letra;
+					}
+				}
+				
+				nota=leer.readDouble();
+				a=new Alumno(id,nombre,apellido,nota);
+			}
+		}catch(EOFException e){
+			System.out.println(e);
+		}catch(IOException e){
+			System.out.println(e);
+		}finally{
+			if(leer!=null){
+				try {
+					leer.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		return a;
+	}
+	
+	 /* 
+	 * Interfaz 
+	 * Cabecera: private void parteFicheroSecuencias(String original,String part1,string part2,int secuencia)
+	 * Proceso:método que divide un archivo de acceso aleatorio en 2,siguiendo una secuencia,es decir,
+	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y después en otro.
+	 * Precondiciones:ARCHIVO DE ACCESO ALEATORIO
+	 * Entrada:1 cadena para el archivo original
+	 * 		   2 cadenas para lso archivos de la partición
+	 * 		   1 entero para el número de registros por secuencia
+	 * Salida:los 2 archivos particionados
+	 * Postcondiciones:El archivo quedará partido en dos, sin ser destruido o modificado
+	 */
+	
+	private void parteFicheroSecuencias(String original,String part1,String part2,int secuencia){
+		File fOriginal=new File(original);
+		File fPart1=new File(part1);
+		File fPart2=new File(part2);
+		RandomAccessFile in=null;
+		RandomAccessFile out1=null;
+		RandomAccessFile out2=null;
+		long tamanyoFichero;
+		try{
+			in=new RandomAccessFile(fOriginal,"r");
+			out1=new RandomAccessFile(fPart1,"rw");
+			out2=new RandomAccessFile(fPart2,"rw");
+			tamanyoFichero=in.length();
+			while(in.getFilePointer()<tamanyoFichero){
+				for(int i=0;i<secuencia;i++){
+					out1.writeInt(in.readInt());
+					//mirar si puedo hacerlo usando el método buscarAlumno!!!
+				}
+			}
+			//Puesto que es acceso directo, cambiaré un poco el método
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			
+		}
+	}
+	
+	/*Preguntar a Asun si es mejor sobrecargar los métodos
 	 *
-	 * Crear AccessRandom, para poder crear ficheros directos.
 	 * 
-	 * Ordernar ficheros de texto y binario (primitivos y objetos)
+	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 
 	 * Cada vez que se cree un alumno guárdalo, pero solo en programa principal, nada de añadir código a métodos
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente

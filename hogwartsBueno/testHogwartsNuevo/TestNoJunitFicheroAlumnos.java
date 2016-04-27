@@ -4,9 +4,12 @@ import hogwartsNuevo.Alumno;
 import hogwartsNuevo.FicheroAlumno;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
 import java.util.Date;
 
 
@@ -35,16 +38,28 @@ public class TestNoJunitFicheroAlumnos {
 		//util.muestraAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat");*/
 		//System.out.println(util.convierteAlumno("hogwartsBueno\\testHogwartsNuevo\\testAlumno.txt", 275216).cadena());
 		//util.muestraAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat");
-		a=new Alumno("Mariano","Sánchez",8.20);
-		/*try {
+		
+		
+		/*a=new Alumno("Mariano","Sánchez",8.20);
+		try {
 			FileOutputStream out=new FileOutputStream("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",true);
 			ObjectOutputStream fichero=new ObjectOutputStream(out);
 			fichero.writeObject(a);
 		} catch (IOException e) {
 			System.out.println(e);
 		}*/
-		util.escribeObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat", a);
-		util.muestraObjetosAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat");
+		
+		
+		//a=new Alumno("Mariano","Sánchez",8.20);
+		//util.escribeObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat", a);
+		//util.muestraObjetosAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat");
+		
+		
+		/*a=new Alumno("Pedro","Rajoy",8.20);
+		util.escribeAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", a);
+		util.muestraAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat");*/
+		a=util.buscaAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", 60);
+		System.out.println(a.cadena());
 	}
 
 }
