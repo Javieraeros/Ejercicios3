@@ -65,7 +65,7 @@ public class FicheroAlumnoTest {
 	}
 	@Test
 	public void buscaObjetoAlumnoTest(){
-		Alumno a=new Alumno("Mariano","Sánchez",8.20);
+		Alumno a=new Alumno("Mariano","SÃ¡nchez",8.20);
 		Alumno copia =utilidad.buscaObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",9);
 		assertEquals(a,copia);
 	}

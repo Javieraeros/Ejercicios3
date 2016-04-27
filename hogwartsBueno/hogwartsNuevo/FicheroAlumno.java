@@ -834,7 +834,7 @@ public class FicheroAlumno {
 	 * 
 	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 
-	 * Cada vez que se cree un alumno gu�rdalo, pero solo en programa principal, nada de a�adir c�digo a m�todos
+	 * Cada vez que se cree un alumno guárdalo, pero solo en programa principal, nada de a�adir c�digo a m�todos
 	 * Cada vez que se modifique un alumno,guardalo en el fichero correspondiente
 	 * Crea el principal Actualizar, de la forma que te dijo asun(do-while)
 	 * Crea un principal que te muestre el fichero correspondiente con la funcionalidad correspondiente
