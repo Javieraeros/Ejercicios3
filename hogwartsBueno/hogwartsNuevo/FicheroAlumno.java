@@ -790,7 +790,7 @@ public class FicheroAlumno {
 	 /* 
 	 * Interfaz 
 	 * Cabecera: private void parteFicheroSecuencias(String original,String part1,string part2,int secuencia)
-	 * Proceso:m�todo que divide un archivo de acceso aleatorio en 2,siguiendo una secuencia,es decir,
+	 * Proceso:método que divide un fichero de acceso aleatorio en 2,siguiendo una secuencia,es decir,
 	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y despu�s en otro.
 	 * Precondiciones:ARCHIVO DE ACCESO ALEATORIO
 	 * Entrada:1 cadena para el archivo original
@@ -800,38 +800,59 @@ public class FicheroAlumno {
 	 * Postcondiciones:El archivo quedar� partido en dos, sin ser destruido o modificado
 	 */
 	
-	private void parteFicheroSecuencias(String original,String part1,String part2,int secuencia){
+	public void parteFicheroSecuencias(String original,String part1,String part2,int secuencia){
 		File fOriginal=new File(original);
-		File fPart1=new File(part1);
-		File fPart2=new File(part2);
 		RandomAccessFile in=null;
-		RandomAccessFile out1=null;
-		RandomAccessFile out2=null;
 		long tamanyoFichero;
+		int id,i,j;
 		try{
 			in=new RandomAccessFile(fOriginal,"r");
-			out1=new RandomAccessFile(fPart1,"rw");
-			out2=new RandomAccessFile(fPart2,"rw");
 			tamanyoFichero=in.length();
 			while(in.getFilePointer()<tamanyoFichero){
-				for(int i=0;i<secuencia;i++){
-					out1.writeInt(in.readInt());
-					//mirar si puedo hacerlo usando el m�todo buscarAlumno!!!
+				for(i=0;i<secuencia;i++){
+					id=in.readInt();
+					Alumno a=buscaAlumnoDirecto(original,id);
+					escribeAlumnoDirecto(part1,a);
+				}
+				for(j=0;j<secuencia;j++){
+					id=in.readInt();
+					Alumno a=buscaAlumnoDirecto(original,id);
+					escribeAlumnoDirecto(part2,a);
 				}
 			}
-			//Puesto que es acceso directo, cambiar� un poco el m�todo
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
 		}finally{
-			
+			if (in!=null){
+				try {
+					in.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 	
-	/*Preguntar a Asun si es mejor sobrecargar los métodos
-	 *
-	 * 
+	 /* 
+	 * Interfaz 
+	 * Cabecera:void mezclaFicheroSecuencia(String nuevo,String fusiona1,String fusiona2,int secuencia)
+	 * Proceso:método que fusiona dos ficheros, guardandolo en uno nuevo, de forma ORDENADA de menor a mayor
+	 * Precondiciones:Ninguna
+	 * Entrada:1 cadena para el nuevo fichero
+	 * 			2 cadenas para cada uno de los ficheros que quieres fusionar
+	 * 			1 entero para saber el número de secuencias que vas a mezclar en cada iteración
+	 * Salida:El fichero
+	 * Entrada/Salida:Ninguna
+	 * Postcondiciones:El fichero quedará guardado en la carpeta indicada por la cadena "original"
+	 */
+	
+	public void mezclaFicheroSecuencia(String original,String fusiona1,String fusiona2,int secuencia){
+		
+	}
+	
+	/*
 	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 
 	 * Cada vez que se cree un alumno guárdalo, pero solo en programa principal, nada de a�adir c�digo a m�todos

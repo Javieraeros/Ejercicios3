@@ -40,7 +40,7 @@ public class TestNoJunitFicheroAlumnos {
 		//util.muestraAlumnoBinario("hogwartsBueno\\testHogwartsNuevo\\Alumnos.dat");
 		
 		
-		/*a=new Alumno("Mariano","Sánchez",8.20);
+		/*a=new Alumno("Mariano","SÃ¡nchez",8.20);
 		try {
 			FileOutputStream out=new FileOutputStream("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat",true);
 			ObjectOutputStream fichero=new ObjectOutputStream(out);
@@ -50,7 +50,7 @@ public class TestNoJunitFicheroAlumnos {
 		}*/
 		
 		
-		//a=new Alumno("Mariano","Sánchez",8.20);
+		//a=new Alumno("Mariano","Sï¿½nchez",8.20);
 		//util.escribeObjetoAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat", a);
 		//util.muestraObjetosAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat");
 		
@@ -58,8 +58,8 @@ public class TestNoJunitFicheroAlumnos {
 		/*a=new Alumno("Pedro","Rajoy",8.20);
 		util.escribeAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", a);
 		util.muestraAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat");*/
-		a=util.buscaAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", 60);
-		System.out.println(a.cadena());
+		//a=util.buscaAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", 60);
+		//System.out.println(a.cadena());
 	}
 
 }
