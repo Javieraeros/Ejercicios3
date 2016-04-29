@@ -615,7 +615,7 @@ public class FicheroAlumno {
 		try{
 			out=new RandomAccessFile(fichero, "rw");
 			//Para que no me sobreescriba:
-			out.seek(out.length());
+			out.seek(a.getID()*92);
 			out.writeInt(a.getID());
 			out.writeChars(nombre);
 			out.writeChars(apellido);
@@ -681,7 +681,9 @@ public class FicheroAlumno {
 				
 				nota=leer.readDouble();
 				a=new Alumno(id,nombre,apellido,nota);
-				System.out.println(a.cadena());
+				if(a.getID()!=0){
+					System.out.println(a.cadena());
+				}
 				contador++;
 			}
 		}catch(EOFException e){

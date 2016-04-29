@@ -55,9 +55,9 @@ public class TestNoJunitFicheroAlumnos {
 		//util.muestraObjetosAlumno("hogwartsBueno\\testHogwartsNuevo\\AlumnoObjeto.dat");
 		
 		
-		/*a=new Alumno("Pedro","Rajoy",8.20);
+		a=new Alumno(640,"Pedro","Rajoy",8.20);
 		util.escribeAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", a);
-		util.muestraAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat");*/
+		util.muestraAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat");
 		//a=util.buscaAlumnoDirecto("hogwartsBueno\\testHogwartsNuevo\\AlumnoDirecto.dat", 60);
 		//System.out.println(a.cadena());
 	}
