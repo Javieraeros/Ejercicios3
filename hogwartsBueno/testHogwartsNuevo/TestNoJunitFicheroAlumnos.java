@@ -115,7 +115,7 @@ public class TestNoJunitFicheroAlumnos {
 		}
 		util.parteFicheroSecuencias("hogwartsBueno\\testHogwartsNuevo\\pruebaPartir.dat", 
 				"hogwartsBueno\\testHogwartsNuevo\\particion1.dat", 
-				"hogwartsBueno\\testHogwartsNuevo\\particion2.dat", 2);
+				"hogwartsBueno\\testHogwartsNuevo\\particion2.dat", 1); //me da error aquí!!
 		util.mezclaFicheroSecuencia("hogwartsBueno\\testHogwartsNuevo\\pruebaFusionar.dat", 
 				"hogwartsBueno\\testHogwartsNuevo\\particion1.dat", 
 				"hogwartsBueno\\testHogwartsNuevo\\particion2.dat", 1);

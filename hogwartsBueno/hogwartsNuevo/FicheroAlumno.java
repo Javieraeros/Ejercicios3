@@ -101,7 +101,7 @@ public class FicheroAlumno {
 				}
 			}
 		}else{
-			System.out.println("Error, la l�nea tiene que ser mayor que 0");
+			System.out.println("Error, la línea tiene que ser mayor que 0");
 		}
 		return devuelve;
 	}
