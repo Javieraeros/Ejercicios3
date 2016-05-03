@@ -526,9 +526,11 @@ public class FicheroAlumno {
 				System.out.println(a.cadena());
 				a=(Alumno) in.readObject();
 			}
-		}catch(IOException e){
+		}catch (ClassNotFoundException e) {
 			System.out.println(e);
-		} catch (ClassNotFoundException e) {
+		}catch(EOFException e){
+			
+		} catch (IOException e) {
 			System.out.println(e);
 		}if(in!=null){
 			try {
@@ -614,7 +616,6 @@ public class FicheroAlumno {
 		
 		try{
 			out=new RandomAccessFile(fichero, "rw");
-			//Para que no me sobreescriba:
 			out.seek(a.getID()*92);
 			out.writeInt(a.getID());
 			out.writeChars(nombre);
@@ -705,7 +706,7 @@ public class FicheroAlumno {
 	 * Interfaz 
 	 * Cabecera: Alumno buscaAlumnoDirecto(String ruta, int ID)
 	 * Proceso:Devuelve un alumno con el id indicado
-	 * Precondiciones:EL FICHERO DEBE ESTAR ORDEANDO
+	 * Precondiciones:Ninguna
 	 * Entrada:1 cadena para la ruta del fichero
 	 * 			1 entero para el id
 	 * Salida:1 alumno
@@ -713,72 +714,53 @@ public class FicheroAlumno {
 	 * Postcondiciones:Alumno asociado al nombre, null si no se encuentra en el fichero
 	 */
 	
-	public Alumno buscaAlumnoDirecto(String ruta,int idAlumno){
-		File fichero=new File(ruta);
-		RandomAccessFile leer=null;
-		Alumno a=null;
-		int id=0;
-		String nombre,apellido;
+	public Alumno buscaAlumnoDirecto(String ruta, int idAlumno) {
+		File fichero = new File(ruta);
+		RandomAccessFile leer = null;
+		Alumno a = null;
+		String nombre, apellido;
 		double nota;
 		char letra;
-		try{
-			//BuscarElemento
-			boolean existe=false;
-			long mitad,inicio,fin;
-			leer=new RandomAccessFile(fichero,"r");
-			inicio=0;
-			fin=leer.length()/92;
-			while(inicio<=fin && !existe){
-				mitad=(inicio+fin)/2;
-				leer.seek((mitad)*92);
-				id=leer.readInt();
-				if(id==idAlumno){
-					existe=true;
-					id=(int) mitad;
-				}else{
-					if(id>idAlumno){
-						fin=mitad-1;
-					}else{
-						inicio=mitad+1;
-					}
+		try {
+
+			leer = new RandomAccessFile(fichero, "r");
+
+			// leerElemento
+
+			leer.seek(idAlumno * (92)); // 4+2*20+2*20+8
+			idAlumno = leer.readInt(); // nos da igual leer la ID o no, pero as� nos
+									// aseguremos de que hemos seleccionado
+									// el que queríamos
+
+			// inicializamos nombre para evitar errores
+			nombre = "";
+			for (int i = 0; i < 20; i++) { // no puedo poner aqui la condicion
+											// de letra!=32 porque tiene que
+											// leer
+											// los 20 caracteres!
+				letra = leer.readChar();
+				if (letra != 32) { // Para que quede bonito
+					nombre = nombre + letra;
 				}
 			}
-			
-			
-			//leerElemento
-			if(existe){
-				leer.seek(id*(92));   //4+2*20+2*20+8
-				id=leer.readInt();  //nos da igual leer la ID o no, pero as� nos aseguremos de que hemos seleccionado
-									//el que quer�amos
-				
-				//inicializamos nombre para evitar errores
-				nombre="";
-				for(int i=0;i<20;i++){  //no puedo poner aqui la condicion de letra!=32 porque tiene que leer
-										//los 20 caracteres!
-					letra=leer.readChar();
-					if (letra!=32){     //Para que quede bonito
-						nombre=nombre+letra;
-					}
+
+			// igual para apellido
+			apellido = "";
+			for (int i = 0; i < 20; i++) {
+				letra = leer.readChar();
+				if (letra != 32) { // Para que quede bonito
+					apellido += letra;
 				}
-				
-				//igual para apellido
-				apellido="";
-				for(int i=0;i<20;i++){
-					letra=leer.readChar();
-					if(letra!=32){      //Para que quede bonito
-						apellido+=letra;
-					}
-				}
-				
-				nota=leer.readDouble();
-				a=new Alumno(id,nombre,apellido,nota);
 			}
-		}catch(EOFException e){
+
+			nota = leer.readDouble();
+			a = new Alumno(idAlumno, nombre, apellido, nota);
+		} catch (EOFException e) {
 			System.out.println(e);
-		}catch(IOException e){
+		} catch (IOException e) {
 			System.out.println(e);
-		}finally{
-			if(leer!=null){
+		} finally {
+			if (leer != null) {
 				try {
 					leer.close();
 				} catch (IOException e) {
@@ -792,44 +774,55 @@ public class FicheroAlumno {
 	 /* 
 	 * Interfaz 
 	 * Cabecera: private void parteFicheroSecuencias(String original,String part1,string part2,int secuencia)
-	 * Proceso:método que divide un fichero de acceso aleatorio en 2,siguiendo una secuencia,es decir,
-	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y despu�s en otro.
-	 * Precondiciones:ARCHIVO DE ACCESO ALEATORIO
+	 * Proceso:método que divide un fichero de objetos alumno en 2,siguiendo una secuencia,es decir,
+	 * 			creando ficheros en los que mete las "secuencia" primeras,primero en uno y después en otro.
+	 * Precondiciones:ARCHIVO DE TIPO OBJETO
 	 * Entrada:1 cadena para el archivo original
 	 * 		   2 cadenas para lso archivos de la partici�n
 	 * 		   1 entero para el n�mero de registros por secuencia
 	 * Salida:los 2 archivos particionados
-	 * Postcondiciones:El archivo quedar� partido en dos, sin ser destruido o modificado
+	 * Postcondiciones:El archivo quedará partido en dos, sin ser destruido o modificado
 	 */
 	
 	public void parteFicheroSecuencias(String original,String part1,String part2,int secuencia){
 		File fOriginal=new File(original);
-		RandomAccessFile in=null;
-		long tamanyoFichero;
-		int id,i,j;
+		FileInputStream leer=null;
+		ObjectInputStream in=null;
+		int i,j;
+		Alumno a;
 		try{
-			in=new RandomAccessFile(fOriginal,"r");
-			tamanyoFichero=in.length();
-			while(in.getFilePointer()<tamanyoFichero){
-				for(i=0;i<secuencia;i++){
-					id=in.readInt();
-					Alumno a=buscaAlumnoDirecto(original,id);
-					escribeAlumnoDirecto(part1,a);
+			leer=new FileInputStream(fOriginal);
+			in=new ObjectInputStream(leer);
+			a=(Alumno) in.readObject();
+			while(a!=null){
+				for(i=0;a!=null && i<secuencia;i++){
+					escribeObjetoAlumno(part1,a);
+					a=(Alumno) in.readObject();
 				}
-				for(j=0;j<secuencia;j++){
-					id=in.readInt();
-					Alumno a=buscaAlumnoDirecto(original,id);
-					escribeAlumnoDirecto(part2,a);
+				for(j=0;a!=null && j<secuencia;j++){
+					escribeObjetoAlumno(part2,a);
+					a=(Alumno) in.readObject();
 				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} catch (EOFException e) {
+
+		}catch (ClassNotFoundException e) {
+			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
-		}finally{
+		} finally{
 			if (in!=null){
 				try {
 					in.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (leer!=null){
+				try {
+					leer.close();
 				} catch (IOException e) {
 					System.out.println(e);
 				}
@@ -841,7 +834,7 @@ public class FicheroAlumno {
 	 * Interfaz 
 	 * Cabecera:void mezclaFicheroSecuencia(String nuevo,String fusiona1,String fusiona2,int secuencia)
 	 * Proceso:método que fusiona dos ficheros, guardandolo en uno nuevo, de forma ORDENADA de menor a mayor
-	 * Precondiciones:Ninguna
+	 * Precondiciones:Entero mayor que 1
 	 * Entrada:1 cadena para el nuevo fichero
 	 * 			2 cadenas para cada uno de los ficheros que quieres fusionar
 	 * 			1 entero para saber el número de secuencias que vas a mezclar en cada iteración
@@ -850,10 +843,105 @@ public class FicheroAlumno {
 	 * Postcondiciones:El fichero quedará guardado en la carpeta indicada por la cadena "original"
 	 */
 	
-	public void mezclaFicheroSecuencia(String original,String fusiona1,String fusiona2,int secuencia){
-		
+	public void mezclaFicheroSecuencia(String original, String fusiona1, String fusiona2, int secuencia) {
+		File fOriginal = new File(original);
+		File fusiona_l = new File(fusiona1);
+		File fusiona_2 = new File(fusiona2);
+		FileInputStream leer1 = null;
+		ObjectInputStream in1 = null;
+		FileInputStream leer2 = null;
+		ObjectInputStream in2 = null;
+		FileOutputStream escribir = null;
+		MiOOS out = null;
+		Alumno a,b;
+		int cont;
+		try {
+			leer1 = new FileInputStream(fusiona_l);
+			in1 = new ObjectInputStream(leer1);
+			leer2 = new FileInputStream(fusiona_2);
+			in2 = new ObjectInputStream(leer2);
+			escribir = new FileOutputStream(fOriginal,true);
+			out = new MiOOS(escribir);
+			a=(Alumno) in1.readObject();
+			b=(Alumno) in2.readObject();
+			while(a!=null && b!=null){
+				for(cont=0;cont<secuencia*2;cont++){
+					if(a.getID()<b.getID()){
+						out.writeObject(a);
+						a=(Alumno) in1.readObject();
+					}else{
+						out.writeObject(b);
+						b=(Alumno) in2.readObject();
+					}
+				}
+			}
+			if(a==null){
+				while(b!=null){
+					out.writeObject(b);
+					b=(Alumno) in2.readObject();
+				}
+			}
+			if(b==null){
+				while(a!=null){
+					out.writeObject(a);
+					a=(Alumno) in1.readObject();
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if (in1 != null) {
+				try {
+					in1.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (in2 != null) {
+				try {
+					in2.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (leer1 != null) {
+				try {
+					leer1.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (leer2 != null) {
+				try {
+					leer2.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (escribir != null) {
+				try {
+					escribir.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
 	}
-	
+
 	/*
 	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 
