@@ -5,8 +5,8 @@
  * Nombre cadena, consultable y modificable
  * Apellidos cadena,consultable y modificable
  * Nota real,consultable y modificable
- * ID entero. Se usará para identificar de forma unívoca a un alumno, se tomará del fichero correspondiente,
- * 			el id+1 del último alumno
+ * ID entero. Se usarï¿½ para identificar de forma unï¿½voca a un alumno, se tomarï¿½ del fichero correspondiente,
+ * 			el id+1 del ï¿½ltimo alumno
  * 
  * Derivadas:
  * 
@@ -84,7 +84,7 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 		}
 	}
 
-	/*Este constructor solo se usará para crear un alumno con un ID fijo,en métodos de lectura
+	/*Este constructor solo se usarÃ¡ para crear un alumno con un ID fijo,en mï¿½todos de lectura
 	  de la clase gestionadora de ficheros de Alumnos 
 	  */ 
 	public Alumno(int ID,String nombre,String apellidos,double nota)throws IllegalArgumentException {
@@ -132,14 +132,14 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 		}
 	}
 
-	// Métodos Añadidos
+	// Mï¿½todos Aï¿½adidos
 	public String cadena() {
 		return (ID + " " + nombre + " " + apellidos + " " + nota);
 	}
 
 	/*
-	 * Necesito un ID único e invariable, por eso creo este método
-	 * Si usase hashCode, el "ID" cambiaría cada vez qeu cambia cualquiera de
+	 * Necesito un ID ï¿½nico e invariable, por eso creo este mï¿½todo
+	 * Si usase hashCode, el "ID" cambiarï¿½a cada vez qeu cambia cualquiera de
 	 * los atributos que use
 	 * para gener el hashCode
 	 */
@@ -147,13 +147,13 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 		int id = 1;
 		if (IDTodos == 0) {
 			try {
-				FileInputStream leerID = new FileInputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+				FileInputStream leerID = new FileInputStream("hogwartsBueno//hogwartsNuevo//ID.dat");
 				DataInputStream in = new DataInputStream(leerID);
 				/*
 				 * Puesto que sabesmos que, si el fichero existe,solo tiene
 				 * escrito un entero,
 				 * no hace falta saber si hay algo que leer,ni cuanto hay
-				 * puesto que solo habrá un entero.
+				 * puesto que solo habrï¿½ un entero.
 				 */
 				// Leo el ID del archivo y se lo asigno a IDTodos
 				id = in.readInt();
