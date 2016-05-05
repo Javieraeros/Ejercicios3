@@ -906,8 +906,12 @@ public class FicheroAlumno {
 			numRegistro1--;
 			b=(Alumno) in2.readObject();
 			numRegistro2--;
-			while (numRegistro1 > 0 || numRegistro2 > 0) {   //Mientras quede algo por leer en algún fichero
-				for (cont1 = 0,cont2=0; cont1 < secuencia && cont2<secuencia && a!=null && b!=null;) {
+			
+			
+			while (numRegistro1 > 0 || numRegistro2 > 0) { // Mientras quede algo pro leer en un fichero
+				
+				//Introducimos dependiendo de la secuencia
+				for (cont1 = 0, cont2 = 0; cont1 < secuencia && cont2 < secuencia && a != null && b != null;) {
 					if (a.getID() < b.getID()) {
 						out.writeObject(a);
 						if (numRegistro1 > 0) {
@@ -918,16 +922,62 @@ public class FicheroAlumno {
 						cont1++;
 						numRegistro1--;
 					} else {
-						if (b != null) {
-							out.writeObject(b);
-							if (numRegistro2 > 0) {
-								b = (Alumno) in2.readObject();
-							} else {
-								b = null;
-							}
-							cont2++;
-							numRegistro2--;
+						out.writeObject(b);
+						if (numRegistro2 > 0) {
+							b = (Alumno) in2.readObject();
+						} else {
+							b = null;
 						}
+						cont2++;
+						numRegistro2--;
+
+					}
+				}
+				
+				//Si uno de los dos contadores ha llegado al valor de la secuencia
+				if(cont1<secuencia){
+					while(a!=null && cont1<secuencia){
+						out.writeObject(a);
+						if (numRegistro1 > 0) {
+							a = (Alumno) in1.readObject();
+						} else {
+							a = null;
+						}
+						cont1++;
+						numRegistro1--;
+					}
+				}else{
+					while(b!=null && cont2<secuencia){
+						out.writeObject(b);
+						if (numRegistro2 > 0) {
+							b = (Alumno) in2.readObject();
+						} else {
+							b = null;
+						}
+						cont2++;
+						numRegistro2--;
+					}
+				}
+				if(numRegistro1==0){
+					while(numRegistro2>=0){
+						out.writeObject(b);
+						if (numRegistro2 > 0) {
+							b = (Alumno) in2.readObject();
+						} else {
+							b = null;
+						}
+						numRegistro2--;
+					}
+				}
+				if(numRegistro2==0){
+					while(numRegistro1>=0){
+						out.writeObject(a);
+						if (numRegistro1 > 0) {
+							a = (Alumno) in1.readObject();
+						} else {
+							a = null;
+						}
+						numRegistro1--;
 					}
 				}
 			}
