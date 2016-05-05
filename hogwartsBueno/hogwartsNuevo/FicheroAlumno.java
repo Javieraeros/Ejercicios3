@@ -574,7 +574,7 @@ public class FicheroAlumno {
 				a=(Alumno) in.readObject();
 			}
 		}catch(EOFException e){
-			System.out.println(e);
+
 		}catch(FileNotFoundException e){
 			System.out.println(e);
 		} catch (ClassNotFoundException e) {
@@ -771,6 +771,44 @@ public class FicheroAlumno {
 		return a;
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public int cuentaRegistroObjeto(String ruta)
+	 * Proceso:cuenta el número de objetos en un fichero
+	 * Precondiciones:Fichero que almacena objetos tipo alumno
+	 * Entrada:1 cadena para la ruta
+	 * Salida:1 entero que muestera el número de registros
+	 * Entrada/Salida:Ninguna
+	 * Postcondiciones:entero asociado al nombre,-1 si existe algún error
+	 */
+	
+	public int cuentaRegistroObjeto(String ruta){
+		int resultado=-1;
+		File fichero=new File(ruta);
+		FileInputStream leer = null;
+		ObjectInputStream in = null;
+		Alumno a;
+		try{
+			leer=new FileInputStream(fichero);
+			in=new ObjectInputStream(leer);
+			a=(Alumno) in.readObject();
+			resultado=1;
+			while(a!=null){
+				a=(Alumno) in.readObject();
+				resultado++;
+			}
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		} catch (EOFException e) {
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		return resultado;
+	}
+	
 	 /* 
 	 * Interfaz 
 	 * Cabecera: private void parteFicheroSecuencias(String original,String part1,string part2,int secuencia)
@@ -854,7 +892,7 @@ public class FicheroAlumno {
 		FileOutputStream escribir = null;
 		MiOOS out = null;
 		Alumno a,b;
-		int cont;
+		int cont1,cont2,numRegistro1,numRegistro2;
 		try {
 			leer1 = new FileInputStream(fusiona_l);
 			in1 = new ObjectInputStream(leer1);
@@ -862,32 +900,37 @@ public class FicheroAlumno {
 			in2 = new ObjectInputStream(leer2);
 			escribir = new FileOutputStream(fOriginal,true);
 			out = new MiOOS(escribir);
+			numRegistro1=cuentaRegistroObjeto(fusiona1);
+			numRegistro2=cuentaRegistroObjeto(fusiona2);
 			a=(Alumno) in1.readObject();
+			numRegistro1--;
 			b=(Alumno) in2.readObject();
-			while(a!=null && b!=null){
-				for(cont=0;cont<secuencia*2;cont++){
-					if(a.getID()<b.getID()){
+			numRegistro2--;
+			while (numRegistro1 > 0 || numRegistro2 > 0) {   //Mientras quede algo por leer en algún fichero
+				for (cont1 = 0,cont2=0; cont1 < secuencia && cont2<secuencia && a!=null && b!=null;) {
+					if (a.getID() < b.getID()) {
 						out.writeObject(a);
-						a=(Alumno) in1.readObject();
-					}else{
-						out.writeObject(b);
-						b=(Alumno) in2.readObject();
+						if (numRegistro1 > 0) {
+							a = (Alumno) in1.readObject();
+						} else {
+							a = null;
+						}
+						cont1++;
+						numRegistro1--;
+					} else {
+						if (b != null) {
+							out.writeObject(b);
+							if (numRegistro2 > 0) {
+								b = (Alumno) in2.readObject();
+							} else {
+								b = null;
+							}
+							cont2++;
+							numRegistro2--;
+						}
 					}
 				}
 			}
-			if(a==null){
-				while(b!=null){
-					out.writeObject(b);
-					b=(Alumno) in2.readObject();
-				}
-			}
-			if(b==null){
-				while(a!=null){
-					out.writeObject(a);
-					a=(Alumno) in1.readObject();
-				}
-			}
-			
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch (EOFException e) {

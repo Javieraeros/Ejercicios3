@@ -80,11 +80,7 @@ public class TestNoJunitFicheroAlumnos {
 		
 		
 		for(int i=0;i<40;i++){
-			if(i%2==0){
-				a=new Alumno(40+i,"Antonio","Jimenez",5.32+i/13.00);
-			}else{
-				a=new Alumno(80+i,"Antonio","Jimenez",5.32+i/13.00);
-			}
+			a=new Alumno((int) (Math.random()*1000),"Antonio","Jimenez",5.32+i/13.00);
 			util.escribeObjetoAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", a);
 		}
 		util.parteFicheroSecuencias("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", 
@@ -96,13 +92,16 @@ public class TestNoJunitFicheroAlumnos {
 		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//particion1.dat");
 		System.out.println("\r\n");
 		System.out.println("\r\n");
-		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//particion2.dat");*/
+		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//particion2.dat");
+		System.out.println(util.cuentaRegistroObjeto("hogwartsBueno//testHogwartsNuevo//particion1.dat")+" "+
+				util.cuentaRegistroObjeto("hogwartsBueno//testHogwartsNuevo//particion1.dat"));*/
 		
 		
 		FileOutputStream ficheroPartir;
 		ObjectOutputStream fichero;
+		//Creamos los ficheros
 		try {
-			ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//pruebaFusionar.dat");
+			ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");
 			fichero=new ObjectOutputStream(ficheroPartir);
 			ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//particion1.dat");
 			fichero=new ObjectOutputStream(ficheroPartir);
@@ -113,18 +112,43 @@ public class TestNoJunitFicheroAlumnos {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-		util.parteFicheroSecuencias("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", 
-				"hogwartsBueno//testHogwartsNuevo//particion1.dat", 
-				"hogwartsBueno//testHogwartsNuevo//particion2.dat", 1); //me da error aquí!!
-		util.mezclaFicheroSecuencia("hogwartsBueno//testHogwartsNuevo//pruebaFusionar.dat", 
-				"hogwartsBueno//testHogwartsNuevo//particion1.dat", 
-				"hogwartsBueno//testHogwartsNuevo//particion2.dat", 1);
+		//Introducimos Alumnos
+		for(int i=0;i<40;i++){
+			a=new Alumno((int) (Math.random()*1000),"Antonio","Jimenez",5.32+i/13.00);
+			util.escribeObjetoAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", a);
+		}
 		
 		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");
+		//ordenamos
+		for(int i=1;i<40;i=i*2){
+			util.parteFicheroSecuencias("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", 
+					"hogwartsBueno//testHogwartsNuevo//particion1.dat", 
+					"hogwartsBueno//testHogwartsNuevo//particion2.dat", i);
+			try {
+				ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");
+				fichero=new ObjectOutputStream(ficheroPartir);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+			util.mezclaFicheroSecuencia("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat", 
+					"hogwartsBueno//testHogwartsNuevo//particion1.dat", 
+				"hogwartsBueno//testHogwartsNuevo//particion2.dat", i);
+			try {
+				ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//particion1.dat");
+				fichero=new ObjectOutputStream(ficheroPartir);
+				ficheroPartir = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//particion2.dat");
+				fichero=new ObjectOutputStream(ficheroPartir);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+		}
 		System.out.println("");
-		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//particion1.dat");
 		System.out.println("");
-		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaFusionar.dat");
+		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");
 		
 	}
 

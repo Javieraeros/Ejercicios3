@@ -69,4 +69,11 @@ public class FicheroAlumnoTest {
 		Alumno copia =utilidad.buscaObjetoAlumno("hogwartsBueno//testHogwartsNuevo//AlumnoObjeto.dat",1);
 		assertEquals(a,copia);
 	}
+	
+	@Test
+	public void cuentaRegistroObjetoTest(){
+		
+		int registro=utilidad.cuentaRegistroObjeto("hogwartsBueno//testHogwartsNuevo//necesarioParaTest.dat");
+		assertEquals(40, registro);
+	}
 }
