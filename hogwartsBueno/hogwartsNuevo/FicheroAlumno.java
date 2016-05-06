@@ -1,6 +1,7 @@
 package hogwartsNuevo;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.StringTokenizer;
 
 public class FicheroAlumno {
@@ -805,6 +806,21 @@ public class FicheroAlumno {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
+		}finally{
+			if(in!=null){
+				try {
+					in.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(leer!=null){
+				try {
+					leer.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return resultado;
 	}
@@ -1231,10 +1247,8 @@ public class FicheroAlumno {
 				}
 			}
 		}
-		fAux1.setWritable(true);
-		boolean fichero1=fAux1.delete();
-		boolean fichero2=fAux2.delete();
-		System.out.println(fichero1+" "+fichero2);
+		fAux1.delete();
+		fAux2.delete();
 	}
 	
 	/*
