@@ -1035,6 +1035,208 @@ public class FicheroAlumno {
 		}
 	}
 
+	/* 
+	 * Interfaz 
+	 * Cabecera:void ordenaFicheroObjeto(String ordenar)
+	 * Proceso:Ordena un fichero de objetos alumno,guardará una copia llamado copia*** del orignial
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 cadena que representa el fichero a ordenar
+	 * Postcondiciones:Se creará un archivo llamado copia**** por seguridad
+	 */
+	
+	public void ordenaFicheroObjeto(String original){
+		File fOriginal=new File(original);
+		File fCopia=new File(original+"c");
+		FileOutputStream originalFOS=null;
+		ObjectOutputStream originalOOS=null;
+		String aux1=original+"aux1";
+		String aux2=original+"aux2";
+		FileOutputStream copiaFOS=null;
+		ObjectOutputStream copiaOOS=null;
+		FileInputStream originalFIS=null;
+		ObjectInputStream originalOIS=null;
+		Alumno a;
+		int tamanyoOriginal;
+		
+		//Para ordenar:
+		File fAux1=new File(aux1);
+		File fAux2=new File(aux2);
+		FileOutputStream aux1FOS=null;
+		ObjectOutputStream aux1OOS=null;
+		FileOutputStream aux2FOS=null;
+		ObjectOutputStream aux2OOS=null;
+		
+		//creaFicheroCopia (para evitar stream header malo)
+		try{
+			copiaFOS=new FileOutputStream(fCopia);
+			copiaOOS=new ObjectOutputStream(copiaFOS);
+			aux1FOS=new FileOutputStream(fAux1);
+			aux1OOS=new ObjectOutputStream(aux1FOS);
+			aux2FOS=new FileOutputStream(fAux2);
+			aux2OOS=new ObjectOutputStream(aux2FOS);
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(copiaOOS!=null){
+				try {
+					copiaOOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(copiaFOS!=null){
+				try {
+					copiaFOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(aux1OOS!=null){
+				try {
+					aux1OOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(aux1FOS!=null){
+				try {
+					aux1FOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(aux2OOS!=null){
+				try {
+					aux2OOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(aux2FOS!=null){
+				try {
+					aux2FOS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		
+		//CopiaFichero
+		try{
+			originalFIS=new FileInputStream(fOriginal);
+			originalOIS=new ObjectInputStream(originalFIS);
+			a=(Alumno) originalOIS.readObject();
+			while(a!=null){
+				escribeObjetoAlumno(original+"c", a);
+				a=(Alumno) originalOIS.readObject();
+			}
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}catch(EOFException e){
+			
+		}catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(originalOIS!=null){
+				try {
+					originalOIS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(originalFIS!=null){
+				try {
+					originalFIS.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		//ordenaFichero
+		tamanyoOriginal=cuentaRegistroObjeto(original);
+		for(int i=1;i<tamanyoOriginal;i=i*2){
+			parteFicheroSecuencias(original,aux1,aux2,i);
+			
+			//reescribeOriginal
+			try {
+				originalFOS = new FileOutputStream(fOriginal);
+				originalOOS=new ObjectOutputStream(originalFOS);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}finally{
+				if(originalOOS!=null){
+					try {
+						originalOOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(originalFOS!=null){
+					try {
+						originalFOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+			}
+			
+			mezclaFicheroSecuencia(original, aux1, aux2, i);
+			
+			//reescribeAuxiliares
+			try {
+				aux1FOS = new FileOutputStream(aux1);
+				aux1OOS=new ObjectOutputStream(aux1FOS);
+				aux2FOS = new FileOutputStream(aux2);
+				aux2OOS=new ObjectOutputStream(aux2FOS);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}finally{
+				if(aux1OOS!=null){
+					try {
+						aux1OOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(aux1FOS!=null){
+					try {
+						aux1FOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(aux2OOS!=null){
+					try {
+						aux2OOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(aux2FOS!=null){
+					try {
+						aux1FOS.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+			}
+		}
+		fAux1.setWritable(true);
+		boolean fichero1=fAux1.delete();
+		boolean fichero2=fAux2.delete();
+		System.out.println(fichero1+" "+fichero2);
+	}
+	
 	/*
 	 * Ordernar ficheros de texto y binario (primitivos y objetos) hibrida y externamente
 	 * 

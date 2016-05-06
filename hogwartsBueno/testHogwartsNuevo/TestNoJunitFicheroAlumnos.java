@@ -97,7 +97,7 @@ public class TestNoJunitFicheroAlumnos {
 				util.cuentaRegistroObjeto("hogwartsBueno//testHogwartsNuevo//particion1.dat"));*/
 		
 		
-		FileOutputStream ficheroPartir;
+		/*FileOutputStream ficheroPartir;
 		ObjectOutputStream fichero;
 		//Creamos los ficheros
 		try {
@@ -148,7 +148,52 @@ public class TestNoJunitFicheroAlumnos {
 		}
 		System.out.println("");
 		System.out.println("");
-		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");
+		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaPartir.dat");*/
+		
+		
+		
+		//Creo el fichero 1 vez con OOS
+		FileOutputStream ficheroOrdenar=null;
+		ObjectOutputStream fichero=null;
+		try {
+			ficheroOrdenar = new FileOutputStream("hogwartsBueno//testHogwartsNuevo//pruebaOrdenar.dat");
+			fichero=new ObjectOutputStream(ficheroOrdenar);
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(fichero!=null){
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(ficheroOrdenar!=null){
+				try {
+					ficheroOrdenar.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+				
+				
+		for(int i=0;i<40;i++){
+			a=new Alumno((int) (Math.random()*1000),"Antonio","Jimenez",5.32+i/13.00);
+			util.escribeObjetoAlumno("hogwartsBueno//testHogwartsNuevo//pruebaOrdenar.dat", a);
+		}
+		util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaOrdenar.dat");
+		System.out.println("Ordenando...");
+		System.out.println("Ordenando...");
+		System.out.println("Ordenando...");
+		System.out.println("Ordenando...");
+		util.ordenaFicheroObjeto("hogwartsBueno//testHogwartsNuevo//pruebaOrdenar.dat");
+		//util.muestraObjetosAlumno("hogwartsBueno//testHogwartsNuevo//pruebaOrdenar.dat");
+		
+		
+		
 		
 	}
 
