@@ -174,7 +174,7 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 			IDTodos++;
 		}
 		try {
-			FileOutputStream escribeID = new FileOutputStream("hogwartsBueno\\hogwartsNuevo\\ID.dat");
+			FileOutputStream escribeID = new FileOutputStream("hogwartsBueno//hogwartsNuevo//ID.dat");
 			DataOutputStream out = new DataOutputStream(escribeID);
 			out.writeInt(id);
 			escribeID.close();
@@ -187,6 +187,7 @@ public class Alumno implements Cloneable, Comparable<Alumno>,Serializable {
 		return id;
 	}
 	
+	@Deprecated
 	public int tomaIDVieja() {
 		int id=1;
 		try {
